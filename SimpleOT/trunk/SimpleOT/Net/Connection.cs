@@ -64,7 +64,7 @@ namespace SimpleOT.Net
             receiveEventArgs.SetBuffer(_message.Buffer, _message.WriterIndex, _message.WritableBytes);
 
             if (_receiveTimeout > 0)
-                _receiveTimeoutScheduleId = _socketServer.Scheduler.Add(new Schedule(_receiveTimeout, OnMessageReceiveTimeout));
+                _receiveTimeoutScheduleId = _socketServer.Scheduler.Add(_receiveTimeout, OnMessageReceiveTimeout);
 
             if (!_socket.ReceiveAsync(receiveEventArgs))
                 ReceiveCallback(this, receiveEventArgs);
@@ -120,7 +120,7 @@ namespace SimpleOT.Net
                 }
 
                 if (_sendTimeout > 0)
-                    _sendTimeoutScheduleId = _socketServer.Scheduler.Add(new Schedule(_sendTimeout, OnMessageSendTimeout));
+                    _sendTimeoutScheduleId = _socketServer.Scheduler.Add(_sendTimeout, OnMessageSendTimeout);
 
                 _sendEventArgs.SetBuffer(message.Buffer, 0, message.WriterIndex);
                 _sendEventArgs.UserToken = message;

@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SimpleOT.Threading;
 
 namespace SimpleOT
 {
-    class Program
+    public static class Server
     {
-        static void Main(string[] args)
-        {
+        public static Dispatcher _dispa
 
 
 
-
-        }
     }
 }

@@ -66,6 +66,11 @@ namespace SimpleOT.Threading
             }
         }
 
+        public void Add(Action action)
+        {
+            Add(new Task(action));
+        }
+
         public void Add(Task task)
         {
             lock (_lock)

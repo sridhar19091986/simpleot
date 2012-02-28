@@ -84,6 +84,11 @@ namespace  SimpleOT.Threading
             }
         }
 
+        public uint Add(long delay, Action action)
+        {
+            return Add(new Schedule(delay, action));
+        }
+
         public uint Add(Schedule schedule)
         {
             lock (_lock)
