@@ -50,4 +50,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="NLog.dll" />
+    <Content Include="NLog.xml" />
+  </ItemGroup>
 </Project>
