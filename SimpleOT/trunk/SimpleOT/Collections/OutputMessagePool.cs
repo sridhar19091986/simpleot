@@ -13,32 +13,20 @@ namespace SimpleOT.Commons.Collections
 		private int _count;
 		private int _minSize;
 		private int _maxSize;
-		private Dispatcher _dispatcher;
 		private long _frameTime;
 		
-		public OutputMessagePool (int minSize, int maxSize, Dispatcher dispatcher)
+		public OutputMessagePool (int minSize, int maxSize)
 		{
-			if (dispatcher == null)
-				throw new ArgumentNullException ("dispatcher");
-			
 			_minSize = minSize;
 			_maxSize = maxSize;
 			
 			_messages = new Stack<Message> (_maxSize);
 			_autoSendMessages = new List<Message> ();
 			
-			_dispatcher = dispatcher;
-			_dispatcher.AfterDispatchTask += HandleDispatcherAfterDispatchTask;
-			
 			_frameTime = DateTime.Now.Ticks;
 		}
 		
-		~OutputMessagePool ()
-		{
-			_dispatcher.AfterDispatchTask -= HandleDispatcherAfterDispatchTask;
-		}
-		
-		protected virtual void HandleDispatcherAfterDispatchTask ()
+		public void ProcessEnqueueMessages ()
 		{
 			_frameTime = DateTime.Now.Ticks;
 			

@@ -34,6 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\SimpleOT.Libraries\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\SimpleOT.Libraries\Mono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\SimpleOT.Libraries\Npgsql.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,9 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Collections\IPoolable.cs" />
     <Compile Include="Collections\OutputMessagePool.cs" />
-    <Compile Include="Collections\Pool.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Data\Account.cs" />
@@ -58,14 +65,11 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Net\Adler.cs" />
-    <Compile Include="Net\ClientHandler.cs" />
-    <Compile Include="Net\ClientHandlerFactory.cs" />
     <Compile Include="Net\Connection.cs" />
     <Compile Include="Net\IHandler.cs" />
     <Compile Include="Net\IHandlerFactory.cs" />
     <Compile Include="Net\Message.cs" />
     <Compile Include="Net\Rsa.cs" />
-    <Compile Include="Net\SimpleHandler.cs" />
     <Compile Include="Net\SocketServer.cs" />
     <Compile Include="Net\SocketServerState.cs" />
     <Compile Include="Net\Xtea.cs" />
@@ -87,6 +91,7 @@
     <Compile Include="Threading\TaskEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NLog.config" />
     <None Include="schema.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
