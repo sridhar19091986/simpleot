@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5931698F-DB88-4B7C-A2CD-F8746E1A018A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SimpleOT</RootNamespace>
+    <AssemblyName>SimpleOT</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Collections\IPoolable.cs" />
+    <Compile Include="Collections\OutputMessagePool.cs" />
+    <Compile Include="Collections\Pool.cs" />
+    <Compile Include="Collections\PriorityQueue.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Data\Account.cs" />
+    <Compile Include="Data\AccountRepository.cs" />
+    <Compile Include="Data\Character.cs" />
+    <Compile Include="Data\IConnectionFactory.cs" />
+    <Compile Include="Data\PostgresConnectionFactory.cs" />
+    <Compile Include="Data\Repository.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Net\Adler.cs" />
+    <Compile Include="Net\ClientHandler.cs" />
+    <Compile Include="Net\ClientHandlerFactory.cs" />
+    <Compile Include="Net\Connection.cs" />
+    <Compile Include="Net\IHandler.cs" />
+    <Compile Include="Net\IHandlerFactory.cs" />
+    <Compile Include="Net\Message.cs" />
+    <Compile Include="Net\Rsa.cs" />
+    <Compile Include="Net\SimpleHandler.cs" />
+    <Compile Include="Net\SocketServer.cs" />
+    <Compile Include="Net\SocketServerState.cs" />
+    <Compile Include="Net\Xtea.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripting\IScriptContext.cs" />
+    <Compile Include="Scripting\IScriptEngine.cs" />
+    <Compile Include="Scripting\IScriptEvent.cs" />
+    <Compile Include="Scripting\Lua.cs" />
+    <Compile Include="Scripting\LuaScriptContext.cs" />
+    <Compile Include="Scripting\LuaScriptEngine.cs" />
+    <Compile Include="Scripting\ScriptException.cs" />
+    <Compile Include="Threading\Dispatcher.cs" />
+    <Compile Include="Threading\DispatcherState.cs" />
+    <Compile Include="Threading\Schedule.cs" />
+    <Compile Include="Threading\Scheduler.cs" />
+    <Compile Include="Threading\SchedulerState.cs" />
+    <Compile Include="Threading\Task.cs" />
+    <Compile Include="Threading\TaskEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="schema.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
