@@ -4,7 +4,7 @@ using SimpleOT.Commons.Net;
 using SimpleOT.Commons;
 using SimpleOT.Commons.Threading;
 
-namespace SimpleOT.LoginServer
+namespace SimpleOT.Net
 {
 	public class ClientHandler : IHandler
 	{

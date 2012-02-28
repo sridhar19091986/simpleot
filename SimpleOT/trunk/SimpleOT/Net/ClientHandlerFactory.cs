@@ -1,7 +1,7 @@
 using System;
 using SimpleOT.Commons.Net;
 
-namespace SimpleOT.LoginServer
+namespace SimpleOT.Net
 {
 	public class ClientHandlerFactory : IHandlerFactory
 	{
