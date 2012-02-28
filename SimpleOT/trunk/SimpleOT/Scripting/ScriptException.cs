@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleOT.Commons.Scripting
+namespace SimpleOT.Scripting
 {
 	public class ScriptException : Exception
 	{

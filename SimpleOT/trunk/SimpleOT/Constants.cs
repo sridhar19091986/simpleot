@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleOT.Commons
+namespace SimpleOT
 {
 	public static class Constants
 	{

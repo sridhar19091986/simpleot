@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleOT.Commons.Threading
+namespace SimpleOT.Threading
 {
 	public class TaskEventArgs : EventArgs
 	{

@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleOT.Commons.Data
+namespace SimpleOT.Data
 {
 	public abstract class Repository
 	{

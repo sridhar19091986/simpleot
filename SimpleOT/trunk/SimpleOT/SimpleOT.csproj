@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -40,6 +41,9 @@
     <Reference Include="Mono.Security">
       <HintPath>..\SimpleOT.Libraries\Mono.Security.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\SimpleOT.Libraries\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Npgsql">
       <HintPath>..\SimpleOT.Libraries\Npgsql.dll</HintPath>
     </Reference>
@@ -52,7 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Collections\OutputMessagePool.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Constants.cs" />

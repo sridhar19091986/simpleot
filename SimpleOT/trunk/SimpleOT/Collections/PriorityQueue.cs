@@ -10,7 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SimpleOT.Commons.Collections
+namespace SimpleOT.Collections
 {
     /// <summary>
     /// Priority queue based on binary heap,

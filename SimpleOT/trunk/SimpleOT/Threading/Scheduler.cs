@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using SimpleOT.Commons.Collections;
+using SimpleOT.Collections;
 using NLog;
 
-namespace  SimpleOT.Commons.Threading
+namespace  SimpleOT.Threading
 {
     public class Scheduler
     {

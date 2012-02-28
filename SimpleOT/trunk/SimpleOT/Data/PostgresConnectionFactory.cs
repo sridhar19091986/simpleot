@@ -2,7 +2,7 @@ using System;
 using Npgsql;
 using System.Data;
 
-namespace SimpleOT.Commons.Data
+namespace SimpleOT.Data
 {
 	public class PostgresConnectionFactory : IConnectionFactory
 	{

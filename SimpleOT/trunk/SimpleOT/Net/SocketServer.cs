@@ -7,11 +7,11 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Net;
-using SimpleOT.Commons.Threading;
+using SimpleOT.Threading;
 using NLog;
-using SimpleOT.Commons.Collections;
+using SimpleOT.Collections;
 
-namespace SimpleOT.Commons.Net
+namespace SimpleOT.Net
 {
 	public class SocketServer
 	{
@@ -36,7 +36,7 @@ namespace SimpleOT.Commons.Net
 			this._port = port;
 			this._protocolFactory = protocolFactory;
 			this._connections = new HashSet<Connection>();
-			this._outputMessagePool = new OutputMessagePool(10, 100, scheduler.Dispatcher);
+			this._outputMessagePool = new OutputMessagePool(10, 100);
 			this._scheduler = scheduler;
 			
 			this._state = SocketServerState.Terminated;

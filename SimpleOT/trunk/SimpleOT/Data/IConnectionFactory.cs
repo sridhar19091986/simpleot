@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 
-namespace SimpleOT.Commons.Data
+namespace SimpleOT.Data
 {
 	public interface IConnectionFactory
 	{
