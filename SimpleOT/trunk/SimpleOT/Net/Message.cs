@@ -210,27 +210,33 @@ namespace SimpleOT.Net
 		
         #region Get
 
-		private void VerifyGet (int byteCount)
+		private void VerifyGet (int position, int byteCount)
 		{
-			if (ReadableBytes < byteCount)
+			if (_writerIndex - position < byteCount)
 				throw new InternalBufferOverflowException ("Insufficient space in this message.");
 		}
 
 		public byte GetByte ()
 		{
-			VerifyGet (1);
+			VerifyGet (_readerIndex, 1);
 			return _buffer [_readerIndex++];
 		}
 		
 		public bool GetBool ()
 		{
-			VerifyGet (1);
+            VerifyGet(_readerIndex, 1);
 			return _buffer [_readerIndex++] == 1;
 		}
 
+        public ushort GetUShort(int position)
+        {
+            VerifyGet(_readerIndex, 2);
+            return BitConverter.ToUInt16(_buffer, _readerIndex);
+        }
+
 		public ushort GetUShort ()
 		{
-			VerifyGet (2);
+            VerifyGet(_readerIndex, 2);
 			var value = BitConverter.ToUInt16 (_buffer, _readerIndex);
 			_readerIndex += 2;
 			return value;
@@ -238,7 +244,7 @@ namespace SimpleOT.Net
 
 		public short GetShort ()
 		{
-			VerifyGet (2);
+            VerifyGet(_readerIndex, 2);
 			var value = BitConverter.ToInt16 (_buffer, _readerIndex);
 			_readerIndex += 2;
 			return value;
@@ -246,7 +252,7 @@ namespace SimpleOT.Net
 
 		public uint GetUInt ()
 		{
-			VerifyGet (4);
+            VerifyGet(_readerIndex, 4);
 			var value = BitConverter.ToUInt32 (_buffer, _readerIndex);
 			_readerIndex += 4;
 			return value;
@@ -254,7 +260,7 @@ namespace SimpleOT.Net
 
 		public int GetInt ()
 		{
-			VerifyGet (4);
+            VerifyGet(_readerIndex, 4);
 			var value = BitConverter.ToInt32 (_buffer, _readerIndex);
 			_readerIndex += 4;
 			return value;
@@ -262,7 +268,7 @@ namespace SimpleOT.Net
 
 		public ulong GetULong ()
 		{
-			VerifyGet (8);
+            VerifyGet(_readerIndex, 8);
 			var value = BitConverter.ToUInt64 (_buffer, _readerIndex);
 			_readerIndex += 8;
 			return value;
@@ -270,7 +276,7 @@ namespace SimpleOT.Net
 
 		public long GetLong ()
 		{
-			VerifyGet (8);
+            VerifyGet(_readerIndex, 8);
 			var value = BitConverter.ToInt64 (_buffer, _readerIndex);
 			_readerIndex += 8;
 			return value;
@@ -280,7 +286,7 @@ namespace SimpleOT.Net
 		{
 			ushort length = GetUShort ();
 
-			VerifyGet (length);
+            VerifyGet(_readerIndex, length);
 
 			var value = Encoding.Default.GetString (_buffer, _readerIndex, length);
 			_readerIndex += length;

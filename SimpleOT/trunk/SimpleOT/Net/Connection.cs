@@ -12,7 +12,7 @@ namespace SimpleOT.Net
     {
         private Socket _socket;
         private SocketServer _socketServer;
-        private Message _buffer;
+        private Message _message;
         private IHandler _handler;
         private SocketAsyncEventArgs _sendEventArgs;
         private object _sendLock;
@@ -41,7 +41,7 @@ namespace SimpleOT.Net
             this._socket = socket;
             this._handler = protocol;
 
-            this._buffer = new Message(true);
+            this._message = new Message(true);
             this._sendLock = new object();
 
             this._sendEventArgs = new SocketAsyncEventArgs();
@@ -61,7 +61,7 @@ namespace SimpleOT.Net
                 receiveEventArgs.Completed += ReceiveCallback;
             }
 
-            receiveEventArgs.SetBuffer(_buffer.Buffer, _buffer.WriterIndex, _buffer.WritableBytes);
+            receiveEventArgs.SetBuffer(_message.Buffer, _message.WriterIndex, _message.WritableBytes);
 
             if (_receiveTimeout > 0)
                 _receiveTimeoutScheduleId = _socketServer.Scheduler.Add(new Schedule(_receiveTimeout, OnMessageReceiveTimeout));
@@ -77,9 +77,25 @@ namespace SimpleOT.Net
 
             if (receiveEventArgs.BytesTransferred > 0 && receiveEventArgs.SocketError == SocketError.Success)
             {
-                _buffer.WriterIndex += receiveEventArgs.BytesTransferred;
+                _message.WriterIndex += receiveEventArgs.BytesTransferred;
 
-                OnMessageReceived(_buffer);
+                _message.MarkReaderIndex();
+                var packetLength = _message.GetUShort();
+
+                if (packetLength > _message.Capacity)
+                {
+                    OnExceptionCaught(new Exception("Invalid packet length. " + packetLength));
+                }
+                else if (_message.ReadableBytes >= packetLength)
+                {
+                    OnMessageReceived(_message);
+                    _message.DiscardReadBytes();
+                }
+                else
+                {
+                    _message.ResetReaderIndex();
+                }
+
                 Receive(receiveEventArgs);
             }
             else
