@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleOT.Commons.Net
+namespace SimpleOT.Net
 {
 	public static class Adler
 	{

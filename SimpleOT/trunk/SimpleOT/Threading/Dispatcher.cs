@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace SimpleOT.Commons.Threading
+namespace SimpleOT.Threading
 {
     public class Dispatcher
     {

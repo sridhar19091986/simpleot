@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using SimpleOT.Commons.Net;
-using SimpleOT.Commons.Threading;
+using SimpleOT.Net;
+using SimpleOT.Threading;
 
-namespace SimpleOT.Commons.Collections
+namespace SimpleOT.Collections
 {
 	public class OutputMessagePool
 	{

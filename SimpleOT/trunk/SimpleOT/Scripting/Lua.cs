@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace SimpleOT.Commons.Scripting
+namespace SimpleOT.Scripting
 {
 	public enum LuaGC : int {
 		Stop = 0,

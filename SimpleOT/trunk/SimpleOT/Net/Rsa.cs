@@ -3,7 +3,7 @@ using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 
-namespace SimpleOT.Commons.Net
+namespace SimpleOT.Net
 {
 	public static class Rsa
 	{
