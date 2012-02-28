@@ -85,6 +85,7 @@
     <Compile Include="Scripting\LuaScriptContext.cs" />
     <Compile Include="Scripting\LuaScriptEngine.cs" />
     <Compile Include="Scripting\ScriptException.cs" />
+    <Compile Include="Server.cs" />
     <Compile Include="Threading\Dispatcher.cs" />
     <Compile Include="Threading\DispatcherState.cs" />
     <Compile Include="Threading\Schedule.cs" />
