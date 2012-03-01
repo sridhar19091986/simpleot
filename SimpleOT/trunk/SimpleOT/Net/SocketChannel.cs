@@ -85,10 +85,19 @@ namespace SimpleOT.Net
                 _message.WriterIndex += receiveEventArgs.BytesTransferred;
 
 
+                while (_message.GetUShort() <= _message.ReadableBytes)
+                {
+                    var readIndex = _message.ReaderIndex;
+                    OnMessageReceived(_message);
 
+                    if(readIndex == _message.ReaderIndex)
+                        OnExceptionCaught(new Exception("Unable to handler complete message"));
 
-                OnMessageReceived(_message);
-                _message.DiscardReadBytes();
+                    _message.DiscardReadBytes();
+                }
+
+                
+                
 
                 Receive(receiveEventArgs);
             }

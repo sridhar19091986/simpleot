@@ -148,23 +148,20 @@ namespace SimpleOT.Net
 			PutBoolean(_writerIndex++, value);
 		}
 		
-		public void PutUShort (int position, ushort value)
+		public unsafe void PutUShort(ushort value)
 		{
-			VerifyPut (position, 2);
-			Array.Copy (BitConverter.GetBytes (value), 0, _buffer, position, 2);
-		}
-		
-		public void PutUShort(ushort value)
-		{
-			PutUShort(_writerIndex, value);
-			_writerIndex += 2;
+            VerifyPut(_writerIndex, 2);
+            fixed (byte* bufferPtr = _buffer)
+                *(ushort*)(bufferPtr + _writerIndex) = value;
+            _writerIndex += 2;
 		}
 
-		public void PutShort (short value)
+		public unsafe void PutShort (short value)
 		{
-			VerifyPut (_writerIndex, 2);
-			Array.Copy (BitConverter.GetBytes (value), 0, _buffer, _writerIndex, 2);
-			_writerIndex += 2;
+            VerifyPut(_writerIndex, 2);
+            fixed (byte* bufferPtr = _buffer)
+                *(short*)(bufferPtr + _writerIndex) = value;
+            _writerIndex += 2;
 		}
 
 		public void PutUInt (uint value)
