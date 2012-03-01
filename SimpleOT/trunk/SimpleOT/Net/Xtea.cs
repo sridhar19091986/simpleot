@@ -4,9 +4,9 @@ namespace SimpleOT.Net
 {
 	public static class Xtea
 	{
-		public unsafe static void Encrypt (Message message, uint[] key, int offset)
+		public unsafe static void Encrypt (Message message, uint[] key)
 		{
-			var msgSize = message.ReadableBytes - offset;
+			var msgSize = message.ReadableBytes - 6;
 			var pad = msgSize % 8;
 			
 			if (pad > 0) {
@@ -15,7 +15,7 @@ namespace SimpleOT.Net
 			}
 			
 			fixed (byte* bufferPtr = message.Buffer) {
-				var words = (uint*)(bufferPtr + offset);
+				var words = (uint*)(bufferPtr + 6);
 
 				for (var pos = 0; pos < msgSize / 4; pos += 2) {
 					uint sum = 0;
@@ -32,15 +32,15 @@ namespace SimpleOT.Net
 			}
 		}
 
-		public unsafe static void Decrypt (Message message, uint[] key, int offset)
+		public unsafe static void Decrypt (Message message, uint[] key)
 		{
-			var msgSize = message.ReadableBytes - offset;
+			var msgSize = message.ReadableBytes - 6;
 
             if (msgSize % 8 > 0)
                 throw new Exception("Invalid Xtea encrypted message size.");
 
 		    fixed (byte* bufferPtr = message.Buffer) {
-				var words = (uint*)(bufferPtr + message.ReaderIndex + offset);
+				var words = (uint*)(bufferPtr + message.ReaderIndex + 6);
                 
 				for (var pos = 0; pos < msgSize / 4; pos += 2) {
 					var count = 32;

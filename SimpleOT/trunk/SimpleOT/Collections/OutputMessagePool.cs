@@ -88,7 +88,14 @@ namespace SimpleOT.Collections
 					_autoSendMessages.Add (message);
 			}
 			
-			message.WriterIndex = Constants.MESSAGE_HEADER_SIZE + Constants.ADLER_CHECKSUM_SIZE + 2;
+			message.WriterIndex = Constants.MESSAGE_HEADER_SIZE;
+
+            if (channel.IsChecksumed)
+                message.WriterIndex += Constants.ADLER_CHECKSUM_SIZE;
+
+            if(channel.IsEncrypted)
+                message.WriterIndex = Constants.MESSAGE_HEADER_SIZE;
+
 			message.Channel = channel;
 			message.FrameTime = _frameTime;
 			
