@@ -4,10 +4,10 @@ using System.Threading;
 
 namespace SimpleOT.Threading
 {
+    public delegate void DispatcherEventHandler();
+
     public class Dispatcher
     {
-		public delegate void DispatcherEventHandler();
-		
         public event DispatcherEventHandler BeforeDispatchTask;
         public event DispatcherEventHandler AfterDispatchTask;
 

@@ -7,6 +7,13 @@ namespace SimpleOT
 		Windows = 1,
 		Linux = 2
 	}
+
+    public enum Protocol : byte
+    {
+        Login,
+        Game,
+        Status
+    }
 	
 	public enum ClientVersion : ushort 
 	{
