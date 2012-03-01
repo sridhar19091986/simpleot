@@ -16,7 +16,7 @@ namespace SimpleOT.Net
 		private int _writerIndex;
 		private int _writerIndexMark;
 		private bool _readyOnly;
-		private Connection _connection;
+		private IChannel _channel;
 		private long _frameTime;
 		
 		public Message (byte[] buffer, bool readOnly)
@@ -62,7 +62,7 @@ namespace SimpleOT.Net
 
 		public void Clear ()
 		{
-			_connection = null;
+			_channel = null;
 			_writerIndex = 0;
 			_readerIndex = 0;
 		}
@@ -76,7 +76,7 @@ namespace SimpleOT.Net
 		
 		public long FrameTime{ get { return _frameTime; } set { _frameTime = value; } }
 		
-		public Connection Connection{ get { return _connection; } set { _connection = value; } }
+		public IChannel Channel{ get { return _channel; } set { _channel = value; } }
 		
 		public int ReadableBytes { get { return _writerIndex - _readerIndex; } }
 
