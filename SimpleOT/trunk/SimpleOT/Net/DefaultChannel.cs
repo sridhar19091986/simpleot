@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using SimpleOT.Threading;
 using SimpleOT.Collections;
+using NLog;
 
 namespace SimpleOT.Net
 {
     public abstract class DefaultChannel : IChannel
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public event ChannelEventHandler ChannelOpen;
         public event ChannelEventHandler ChannelClosed;
         public event ChannelExceptionCaughtEventHandler ExceptionCaught;
@@ -19,7 +22,7 @@ namespace SimpleOT.Net
 
         #region Event Raise
 
-        protected void OnOpen(IChannel channel)
+        protected virtual void OnOpen(IChannel channel)
         {
             try
             {
@@ -33,7 +36,7 @@ namespace SimpleOT.Net
             }
         }
 
-        protected void OnClosed()
+        protected virtual void OnClosed()
         {
             try
             {
@@ -57,12 +60,11 @@ namespace SimpleOT.Net
             }
             catch (Exception e)
             {
-
-                Console.WriteLine("Error while handling exception. Details: " + e.Message);
+                logger.ErrorException("Error while handling exception.", e);
             }
         }
 
-        protected void OnMessageReceived(Message message)
+        protected virtual void OnMessageReceived(Message message)
         {
             try
             {
@@ -76,7 +78,7 @@ namespace SimpleOT.Net
             }
         }
 
-        protected void OnMessageWritten(Message message)
+        protected virtual void OnMessageWritten(Message message)
         {
             try
             {
@@ -90,7 +92,7 @@ namespace SimpleOT.Net
             }
         }
 
-        protected void OnMessageReceiveTimeout()
+        protected virtual void OnMessageReceiveTimeout()
         {
             try
             {
@@ -104,7 +106,7 @@ namespace SimpleOT.Net
             }
         }
 
-        protected void OnMessageSendTimeout()
+        protected virtual void OnMessageSendTimeout()
         {
             try
             {

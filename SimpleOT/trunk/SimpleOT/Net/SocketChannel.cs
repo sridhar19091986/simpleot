@@ -84,6 +84,9 @@ namespace SimpleOT.Net
             {
                 _message.WriterIndex += receiveEventArgs.BytesTransferred;
 
+
+
+
                 OnMessageReceived(_message);
                 _message.DiscardReadBytes();
 
@@ -98,6 +101,9 @@ namespace SimpleOT.Net
         public override void Write(Message message)
         {
             OnMessageWritten(message);
+
+            if (_isEncrypted)
+                Xtea.Encrypt(message, _xteaKey);
 
             lock (_sendLock)
             {
@@ -125,7 +131,6 @@ namespace SimpleOT.Net
         {
             lock (_sendLock)
             {
-
                 if (_sendTimeoutScheduleId > 0)
                     _parent.Scheduler.Remove(_sendTimeoutScheduleId);
 
@@ -170,6 +175,18 @@ namespace SimpleOT.Net
                 _socket.Close();
                 OnClosed();
             }
+        }
+
+        protected override void OnMessageReceiveTimeout()
+        {
+            _receiveTimeoutScheduleId = 0;
+            base.OnMessageReceiveTimeout();
+        }
+
+        protected override void OnMessageSendTimeout()
+        {
+            _sendTimeoutScheduleId = 0;
+            base.OnMessageSendTimeout();
         }
 
         public int ReceiveTimeout { get { return _receiveTimeout; } set { _receiveTimeout = value; } }
