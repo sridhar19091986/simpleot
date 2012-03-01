@@ -17,7 +17,7 @@ namespace SimpleOT.Net
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 
-		private ISet<SocketChannel> _channels;
+		private ISet<IChannel> _channels;
 		private Socket _acceptSocket;
         private Dispatcher _dispatcher;
 		private Scheduler _scheduler;
@@ -25,24 +25,33 @@ namespace SimpleOT.Net
 		private int _port;
 		private int _maxConnections;
 
+        private IChannelHandlerFactory _channelHandlerFactory;
+
         private Object _attachment;
 
-        public SocketServerChannel(int port, Dispatcher dispatcher, Scheduler scheduler)
+        public SocketServerChannel(int port, Dispatcher dispatcher, Scheduler scheduler, IChannelHandlerFactory channelHandlerFactory)
         {
             if(dispatcher == null)
                 throw new ArgumentNullException("dispatcher");
 			if(scheduler == null)
 				throw new ArgumentNullException("scheduler");
+            if (channelHandlerFactory == null)
+                throw new ArgumentNullException("channelHandlerFactory");
 
 			this._port = port;
             this._dispatcher = dispatcher;
             this._scheduler = scheduler;
+            this._channelHandlerFactory = channelHandlerFactory;
 
-			this._channels = new HashSet<SocketChannel>();
+			this._channels = new HashSet<IChannel>();
 			this._outputMessagePool = new OutputMessagePool(10, 100);
 
-            //TODO: Analizar quando devemos remover este evento.
-            this._dispatcher.AfterDispatchTask += new DispatcherEventHandler(_outputMessagePool.ProcessEnqueueMessages);
+            this._dispatcher.AfterDispatchTask += _outputMessagePool.ProcessEnqueueMessages;
+        }
+
+        ~SocketServerChannel()
+        {
+            this.Dispatcher.AfterDispatchTask -= _outputMessagePool.ProcessEnqueueMessages;
         }
 
 		public override void Open()
@@ -97,8 +106,8 @@ namespace SimpleOT.Net
 			{
 				if(_channels.Count < _maxConnections) 
                 {
-                    SocketChannel channel = new SocketChannel(e.AcceptSocket, this);
-                    channel.ChannelClosed += new ChannelEventHandler(ChannelClosedHandler);
+                    var channel = new SocketChannel(e.AcceptSocket, this);
+                    channel.ChannelClosed += ChannelClosedHandler;
 
 					_channels.Add(channel);
                     OnOpen(channel);
@@ -115,7 +124,11 @@ namespace SimpleOT.Net
 
         protected void ChannelClosedHandler(IChannel channel)
         {
-
+            lock (_channels)
+            {
+                channel.ChannelClosed -= ChannelClosedHandler;
+                _channels.Remove(channel);
+            }
         }
 
         public int MaxConnections { get { return _maxConnections; } set { _maxConnections = value; } }
