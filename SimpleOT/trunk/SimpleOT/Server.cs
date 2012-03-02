@@ -7,13 +7,12 @@ using SimpleOT.Threading;
 
 namespace SimpleOT
 {
-    class Server
+    public class Server
     {
         private readonly Dispatcher _dispatcher;
         private readonly Scheduler _scheduler;
 
         private readonly ServiceManager _serviceManager;
-
 
         public Server()
         {
@@ -23,7 +22,7 @@ namespace SimpleOT
             _dispatcher.Start();
             _scheduler.Start();
 
-            _serviceManager = new ServiceManager(_dispatcher, _scheduler);
+            _serviceManager = new ServiceManager(this, _dispatcher, _scheduler);
 
             _serviceManager.Add<LoginProtocol>(0);
             _serviceManager.Add<GameProtocol>(7172);

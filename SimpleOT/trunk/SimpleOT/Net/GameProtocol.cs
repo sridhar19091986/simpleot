@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleOT.Net
 {
-    [ProtocolInfo("Game", 0x01)]
+    [ProtocolInfo("Game", 0x01, SingleSocket = true)]
     public class GameProtocol : Protocol
     {
     }

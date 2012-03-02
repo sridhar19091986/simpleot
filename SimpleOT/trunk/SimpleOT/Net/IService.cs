@@ -11,5 +11,6 @@ namespace SimpleOT.Net
 
         string ProtocolName { get; }
         byte ProtocolIndentifier { get; }
+        bool SingleSocket { get; }
     }
 }
