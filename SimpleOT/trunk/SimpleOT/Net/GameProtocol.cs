@@ -5,8 +5,8 @@ using System.Text;
 
 namespace SimpleOT.Net
 {
-    public interface IChannelHandler
+    [ProtocolInfo("Game", 0x01)]
+    public class GameProtocol : Protocol
     {
-        IChannel Channel { get; }
     }
 }

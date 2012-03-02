@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SimpleOT
+namespace SimpleOT.Net
 {
-    class Program
+    [ProtocolInfo("Login", 0x10)]
+    public class LoginProtocol : Protocol
     {
-        static void Main(string[] args)
-        {
-
-
-
-
-        }
     }
 }

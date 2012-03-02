@@ -41,14 +41,14 @@ namespace SimpleOT.Collections
 					
 					if (message.WritableBytes > Constants.MESSAGE_SEND_MIN_SIZE ||
 					   _frameTime - message.FrameTime > Constants.MESSAGE_SEND_MIN_TIME) {
-						message.Channel.Write (message);
+						message.Connection.Write (message);
 						_autoSendMessages.RemoveAt (i);
 					}
 				}
 			}
 		}
 		
-		public Message Get (IChannel connection, bool autoSend)
+		public Message Get (Connection connection, bool autoSend)
 		{
 			if (connection == null)
 				throw new ArgumentNullException ("connection");
@@ -81,22 +81,15 @@ namespace SimpleOT.Collections
 				_autoSendMessages.Add(message);
 		}
 		
-		private Message Configure (Message message, IChannel channel, bool autoSend)
+		private Message Configure (Message message, Connection connection, bool autoSend)
 		{
 			if (autoSend) {
 				lock (_autoSendMessages)
 					_autoSendMessages.Add (message);
 			}
 			
-			message.WriterIndex = Constants.MESSAGE_HEADER_SIZE;
-
-            if (channel.IsChecksumed)
-                message.WriterIndex += Constants.ADLER_CHECKSUM_SIZE;
-
-            if(channel.IsEncrypted)
-                message.WriterIndex = Constants.MESSAGE_HEADER_SIZE;
-
-			message.Channel = channel;
+			message.WriterIndex = 8;
+			message.Connection = connection;
 			message.FrameTime = _frameTime;
 			
 			return message;
