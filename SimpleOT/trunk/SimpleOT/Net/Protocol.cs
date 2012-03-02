@@ -11,6 +11,8 @@ namespace SimpleOT.Net
         private readonly string _protocolName;
         private readonly byte _protocolIndentifier;
 
+        private bool _singleSocket;
+
         public ProtocolInfoAttribute(string protocolName, byte protocolIndentifier)
         {
             this._protocolName = protocolName;
@@ -19,6 +21,8 @@ namespace SimpleOT.Net
 
         public string ProtocolName { get { return _protocolName; } }
         public byte ProtocolIndentifier { get { return _protocolIndentifier; } }
+
+        public bool SingleSocket { get { return _singleSocket; } set { _singleSocket = value; } }
     }
 
     public abstract class Protocol

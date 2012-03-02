@@ -17,6 +17,7 @@ namespace SimpleOT.Net
 	{
         private readonly string _protocolName;
         private readonly byte _protocolIndentifier;
+        private readonly bool _singleSocket;
 
         public Service()
         {
@@ -29,6 +30,7 @@ namespace SimpleOT.Net
 
             _protocolName = protocolInfo.ProtocolName;
             _protocolIndentifier = protocolInfo.ProtocolIndentifier;
+            _singleSocket = protocolInfo.SingleSocket;
         }
 
         public Protocol CreateProtocol()
@@ -38,5 +40,6 @@ namespace SimpleOT.Net
 
         public string ProtocolName { get { return _protocolName; } }
         public byte ProtocolIndentifier { get { return _protocolIndentifier; } }
+        public bool SingleSocket { get { return _singleSocket; } }
 	}
 }

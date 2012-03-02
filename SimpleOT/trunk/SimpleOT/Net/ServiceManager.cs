@@ -11,12 +11,16 @@ namespace SimpleOT.Net
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private readonly Server _server;
+
         private readonly IDictionary<int, ServicePort> _acceptors;
         private readonly Dispatcher _dispatcher;
         private readonly Scheduler _scheduler;
 
-        public ServiceManager(Dispatcher dispatcher, Scheduler scheduler)
+        public ServiceManager(Server server, Dispatcher dispatcher, Scheduler scheduler)
         {
+            if (server == null)
+                throw new ArgumentNullException("server");
             if (dispatcher == null)
                 throw new ArgumentNullException("dispatcher");
             if (scheduler == null)
@@ -41,7 +45,15 @@ namespace SimpleOT.Net
             ServicePort servicePort = null;
 
             if (_acceptors.ContainsKey(port))
+            {
                 servicePort = _acceptors[port];
+
+                if (servicePort.SingleSocket)
+                {
+                    logger.Error("{0} and {1} cannot use the same port {2}.", service.ProtocolName, servicePort.ProtocolNames, port);
+                    return;
+                }
+            }
             else
             {
                 servicePort = new ServicePort(port, _dispatcher, _scheduler);
@@ -50,5 +62,7 @@ namespace SimpleOT.Net
 
             servicePort.AddService(service);
         }
+
+        public Server Server { get { return _server; } }
     }
 }

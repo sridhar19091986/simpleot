@@ -100,6 +100,9 @@ namespace SimpleOT.Net
             {
                 var connection = new Connection(e.AcceptSocket, this);
 
+               // if(_services.Any(x=>x.
+
+
                 _connections.Add(connection);
             }
 				
@@ -122,11 +125,15 @@ namespace SimpleOT.Net
 
         internal Protocol CreateProtocol(Message message)
         {
+
             return null;
         }
 
         public OutputMessagePool OutputMessagePool { get { return _outputMessagePool; } }
         public Dispatcher Dispatcher { get { return _dispatcher; } }
         public Scheduler Scheduler { get { return _scheduler; } }
+
+        public bool SingleSocket { get { return _services.Count > 0 && _services.First().SingleSocket; } }
+        public object ProtocolNames { get { return String.Join(", ", _services.Select(x => x.ProtocolName)); } }
     }
 }
