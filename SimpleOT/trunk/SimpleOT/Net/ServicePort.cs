@@ -99,11 +99,13 @@ namespace SimpleOT.Net
             lock (_connections)
             {
                 var connection = new Connection(e.AcceptSocket, this);
+				
+				_connections.Add(connection);
 
-               // if(_services.Any(x=>x.
-
-
-                _connections.Add(connection);
+               	if(_services.Any (x=>x.SingleSocket))
+					connection.Accept(_services.First().CreateProtocol());	
+				else
+					connection.Accept();
             }
 				
 			Accept(e);
@@ -117,15 +119,21 @@ namespace SimpleOT.Net
             _services.Add(service);
         }
 
-        internal void OnConnectionClosed(Connection channel)
+        public void OnConnectionClosed(Connection connection)
         {
             lock (_connections)
-                _connections.Remove(channel);
+                _connections.Remove(connection);
         }
 
-        internal Protocol CreateProtocol(Message message)
+        public Protocol CreateProtocol(Message message)
         {
-
+			byte protocolId = message.GetByte();
+			var service = _services.FirstOrDefault(x=>x.ProtocolIndentifier == protocolId);
+			
+			if(service != null)
+				return service.CreateProtocol();
+			
+			
             return null;
         }
 

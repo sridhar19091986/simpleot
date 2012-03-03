@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NLog;
 
 namespace SimpleOT.Net
 {
@@ -27,6 +28,8 @@ namespace SimpleOT.Net
 
     public abstract class Protocol
     {
+		private static Logger logger = LogManager.GetCurrentClassLogger();
+		
         private Connection _connection;
 
         public virtual void OnConnectionOpen() { }
@@ -39,6 +42,10 @@ namespace SimpleOT.Net
 
         public virtual void OnExceptionCaught(Exception exception)
         {
+			logger.Error("Connection error. Details: {0}", exception.Message);
+			
+			if(_connection != null)
+				_connection.Close();
         }
 
         public Connection Connection { get { return _connection; } set { _connection = value; } }
