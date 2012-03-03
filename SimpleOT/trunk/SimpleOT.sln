@@ -6,10 +6,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT", "SimpleOT\SimpleOT.csproj", "{5931698F-DB88-4B7C-A2CD-F8746E1A018A}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -22,21 +18,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|x86.Build.0 = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|Mixed Platforms.Build.0 = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|x86.ActiveCfg = Debug|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|x86.ActiveCfg = Release|Any CPU
-		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|x86.Build.0 = Release|Any CPU
 		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -52,12 +33,24 @@ Global
 		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|Mixed Platforms.Build.0 = Release|x86
 		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|x86.ActiveCfg = Release|x86
 		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|x86.Build.0 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|x86.Build.0 = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|Mixed Platforms.Build.0 = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Default|x86.ActiveCfg = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|x86.ActiveCfg = Release|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = SimpleOT.LoginServer\SimpleOT.LoginServer.csproj
+		StartupItem = SimpleOT\SimpleOT.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
@@ -65,5 +58,12 @@ Global
 		$0.StandardHeader = $2
 		$2.Text = 
 		$2.IncludeInNewFiles = True
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

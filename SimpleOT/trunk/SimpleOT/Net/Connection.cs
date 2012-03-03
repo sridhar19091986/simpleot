@@ -69,6 +69,7 @@ namespace SimpleOT.Net
             if (protocol != null)
             {
                 _protocol = protocol;
+				_protocol.Connection = this;
                 OnOpen();
             }
 
@@ -85,8 +86,9 @@ namespace SimpleOT.Net
                 receiveEventArgs = new SocketAsyncEventArgs();
                 receiveEventArgs.Completed += ReceiveCallback;
             }
-
-            receiveEventArgs.SetBuffer(_message.Buffer, _message.WriterIndex, _message.WritableBytes);
+			
+			_message.Clear();
+            receiveEventArgs.SetBuffer(_message.Buffer, 0, 2);
             receiveEventArgs.UserToken = ReceiveType.Head;
 
             if (_receiveTimeout > 0)
@@ -141,6 +143,7 @@ namespace SimpleOT.Net
 
                                 if (_protocol == null)
                                 {
+									logger.Error("No protocol found. Closing connection.");
                                     Close();
                                     return;
                                 }
@@ -155,7 +158,6 @@ namespace SimpleOT.Net
                             OnReceiveMessage();
                         }
 
-                        _message.Clear();
                         Receive(receiveEventArgs);
                     }
                     else
@@ -272,6 +274,8 @@ namespace SimpleOT.Net
         {
             try
             {
+				_servicePort.OnConnectionClosed(this);
+				
                 if (_protocol != null)
                     _protocol.OnConnectionClosed();
             }

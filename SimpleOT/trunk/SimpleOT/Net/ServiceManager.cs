@@ -25,7 +25,8 @@ namespace SimpleOT.Net
                 throw new ArgumentNullException("dispatcher");
             if (scheduler == null)
                 throw new ArgumentNullException("scheduler");
-
+			
+			_server = server;
             _dispatcher = dispatcher;
             _scheduler = scheduler;
 
