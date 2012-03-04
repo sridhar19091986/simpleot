@@ -21,6 +21,8 @@ namespace SimpleOT
 		
 		public const uint XTEA_DELTA = 0x9E3779B9;
 		
+		public const int CONNECTION_SEND_TIMEOUT = 30000; //30s
+		public const int CONNECTION_RECEIVE_TIMEOUT = 30000; //30s
 	}
 }
 

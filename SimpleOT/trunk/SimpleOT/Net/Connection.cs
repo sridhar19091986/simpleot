@@ -39,6 +39,8 @@ namespace SimpleOT.Net
         private int _sendTimeout;
 
         private bool _firstMessageReceived;
+		
+		private string _remoteAddress;
 
         public Connection(Socket socket, ServicePort servicePort)
         {
@@ -49,14 +51,16 @@ namespace SimpleOT.Net
             if (!socket.Connected)
                 throw new ArgumentException("The socket is not connected.");
 
-            this._socket = socket;
-            this._servicePort = servicePort;
+            _socket = socket;
+            _servicePort = servicePort;
 
-            this._message = new Message(true);
-            this._sendLock = new object();
+            _message = new Message(true);
+            _sendLock = new object();
 
-            this._sendEventArgs = new SocketAsyncEventArgs();
-            this._sendEventArgs.Completed += SendCallback;
+            _sendEventArgs = new SocketAsyncEventArgs();
+            _sendEventArgs.Completed += SendCallback;
+			
+			_remoteAddress = ((IPEndPoint)_socket.RemoteEndPoint).Address.ToString();
         }
 
         public void Accept()
@@ -78,7 +82,7 @@ namespace SimpleOT.Net
 
         protected void Receive(SocketAsyncEventArgs receiveEventArgs)
         {
-            if (!_socket.Connected)
+            if (_socket == null || !_socket.Connected)
                 return;
 
             if (receiveEventArgs == null)
@@ -223,11 +227,14 @@ namespace SimpleOT.Net
 
         public void Close()
         {
-            if (_closing)
-                return;
+			lock(this) 
+			{
+            	if (_closing)
+                	return;
 
-            _closing = true;
-
+            	_closing = true;
+			}
+			
             try
             {
                 _socket.Shutdown(SocketShutdown.Receive);
@@ -241,16 +248,27 @@ namespace SimpleOT.Net
 
         private void CloseSocket()
         {
-            if (!_closing)
-                return;
+			lock(this) 
+			{
+            	if (!_closing)
+             	   return;
+			}
 
             if (_pendingSend > 0)
             {
-                _servicePort.Scheduler.Dispatcher.Add(new Task(CloseSocket));
+                _servicePort.Dispatcher.Add(new Task(CloseSocket));
             }
             else
             {
-                _socket.Close();
+                try
+				{
+					_socket.Close();
+				}
+				catch(Exception)
+				{					
+				}
+				
+				_socket = null;
                 OnClosed();
             }
         }
@@ -357,7 +375,7 @@ namespace SimpleOT.Net
 
         public int ReceiveTimeout { get { return _receiveTimeout; } set { _receiveTimeout = value; } }
         public int SendTimeout { get { return _sendTimeout; } set { _sendTimeout = value; } }
-        public string RemoteAddress { get { return ((IPEndPoint)_socket.RemoteEndPoint).Address.ToString(); } }
+        public string RemoteAddress { get { return _remoteAddress; } }
 
         public OutputMessagePool OutputMessagePool { get { return _servicePort.OutputMessagePool; } }
         public Dispatcher Dispatcher { get { return _servicePort.Dispatcher; } }
