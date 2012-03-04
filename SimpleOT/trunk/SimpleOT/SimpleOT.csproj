@@ -94,7 +94,6 @@
     <Compile Include="Threading\Scheduler.cs" />
     <Compile Include="Threading\SchedulerState.cs" />
     <Compile Include="Threading\Task.cs" />
-    <Compile Include="Threading\TaskEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">

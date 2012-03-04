@@ -42,7 +42,7 @@ namespace SimpleOT.Net
 
         public virtual void OnExceptionCaught(Exception exception)
         {
-			logger.Error("Connection error. Details: {0}", exception.Message);
+			logger.Error("Connection error. Details: {0}\nStack Trace: {1}", exception.Message, exception.StackTrace);
 			
 			if(_connection != null)
 				_connection.Close();

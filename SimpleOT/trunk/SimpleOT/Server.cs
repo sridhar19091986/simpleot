@@ -9,6 +9,8 @@ namespace SimpleOT
 {
     public class Server
     {
+		public static Server Instance = new Server();
+		
         private readonly Dispatcher _dispatcher;
         private readonly Scheduler _scheduler;
 
@@ -33,10 +35,9 @@ namespace SimpleOT
             _scheduler.Shutdown();
             _dispatcher.Shutdown();
         }
-
+		
         static void Main(string[] args)
         {
-            new Server();
         }
     }
 }
