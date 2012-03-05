@@ -134,11 +134,13 @@ namespace SimpleOT.Net
                         {
                             _firstMessageReceived = true;
 
-                            var hasChecksum = _message.PeekUInt() == Adler.Generate(_message);
-                            if (hasChecksum)
-                                _message.GetUInt();
 
-                            if (_protocol != null)
+                            _message.MarkReaderIndex();
+                            var hasChecksum = _message.GetUInt() == Adler.Generate(_message);
+                            if (!hasChecksum)
+                                _message.ResetReaderIndex();
+
+                            if (_protocol == null)
                             {
                                 _protocol = _servicePort.CreateProtocol(_message, hasChecksum);
 

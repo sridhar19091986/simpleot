@@ -33,7 +33,7 @@ namespace SimpleOT.Tests
 
             Assert.AreNotEqual(checksum, Adler.Generate(message));
 
-            Xtea.Encrypt(message, _key);
+            Xtea.Decrypt(message, _key);
 
             Assert.AreEqual(checksum, Adler.Generate(message));
         }
