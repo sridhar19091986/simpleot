@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleOT.Net
 {
-    [ProtocolInfo("Login", 0x10)]
+    [ProtocolInfo("Login", 0x01, HasChecksum=true)]
     public class LoginProtocol : Protocol
     {
         public LoginProtocol()

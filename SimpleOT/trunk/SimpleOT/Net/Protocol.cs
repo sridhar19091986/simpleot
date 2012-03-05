@@ -49,7 +49,12 @@ namespace SimpleOT.Net
             if (_hasChecksum && message.GetUInt() != Adler.Generate(message))
                 throw new Exception("Invalid message checksum.");
 
-
+            if (_hasXteaEncryption)
+            {
+                Xtea.Decrypt(message, _xteaKey);
+                var length = message.GetUShort();
+                message.WriterIndex = message.ReaderIndex + length;
+            }
         }
 
         public virtual void OnSendMessage(Message message)
