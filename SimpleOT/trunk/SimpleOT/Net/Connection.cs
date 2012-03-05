@@ -128,23 +128,19 @@ namespace SimpleOT.Net
                     }
                     else if (length == _message.ReadableBytes)
                     {
-                        //complete message
-
-                        _message.GetUShort(); //discart the header
-
-                        var checksumPassed = _message.PeekUInt() == Adler.Generate(_message);
-
-                        if (checksumPassed)
-                            _message.GetUInt();
-
+                        _message.GetUShort();
 
                         if (!_firstMessageReceived)
                         {
                             _firstMessageReceived = true;
 
+                            var hasChecksum = _message.PeekUInt() == Adler.Generate(_message);
+                            if (hasChecksum)
+                                _message.GetUInt();
+
                             if (_protocol != null)
                             {
-                                _protocol = _servicePort.CreateProtocol(_message);
+                                _protocol = _servicePort.CreateProtocol(_message, hasChecksum);
 
                                 if (_protocol == null)
                                 {
