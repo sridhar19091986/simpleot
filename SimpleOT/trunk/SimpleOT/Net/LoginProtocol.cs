@@ -8,6 +8,11 @@ namespace SimpleOT.Net
     [ProtocolInfo("Login", 0x10)]
     public class LoginProtocol : Protocol
     {
+        public LoginProtocol()
+        {
+            HasChecksum = true;
+        }
+
         public override void OnReceiveFirstMessage(Message message)
         {
             message.GetUShort();

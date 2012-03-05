@@ -6,12 +6,12 @@ namespace SimpleOT.Net
 	{
         public static uint Generate(Message message)
         {
-            var length = message.WriterIndex;
-            var offset = 6;
-            var buffer = message.Buffer;
-
-            if (length - offset <= 0)
+            if (message.ReadableBytes <= 0)
                 throw new InvalidOperationException("Invalid message length.");
+
+            var length = message.ReadableBytes;
+            var offset = message.ReaderIndex;
+            var buffer = message.Buffer;
 
             var unSum1 = Constants.AdlerChecksumStart & 0xFFFF;
             var unSum2 = (Constants.AdlerChecksumStart >> 16) & 0xFFFF;

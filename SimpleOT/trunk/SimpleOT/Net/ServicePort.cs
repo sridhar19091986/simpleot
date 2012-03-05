@@ -130,10 +130,10 @@ namespace SimpleOT.Net
                 _connections.Remove(connection);
         }
 
-        public Protocol CreateProtocol(Message message)
+        public Protocol CreateProtocol(Message message, bool hasChecksum)
         {
 			byte protocolId = message.GetByte();
-			var service = _services.FirstOrDefault(x=>x.ProtocolIndentifier == protocolId);
+            var service = _services.FirstOrDefault(x => x.ProtocolIndentifier == protocolId && x.HasChecksum == hasChecksum);
 			
 			if(service != null)
 				return service.CreateProtocol();

@@ -43,7 +43,14 @@ namespace SimpleOT.Net
         public virtual void OnConnectionClosed() { }
 
         public virtual void OnReceiveFirstMessage(Message message) { }
-        public virtual void OnReceiveMessage(Message message) { }
+        
+        public virtual void OnReceiveMessage(Message message) 
+        {
+            if (_hasChecksum && message.GetUInt() != Adler.Generate(message))
+                throw new Exception("Invalid message checksum.");
+
+
+        }
 
         public virtual void OnSendMessage(Message message)
         {
