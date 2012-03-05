@@ -36,11 +36,11 @@ namespace SimpleOT.Collections
 					
 					var message = _autoSendMessages [i];
 					
-					if (DateTime.Now.Ticks - _frameTime > Constants.MESSAGE_SEND_MAX_TIME)
+					if (DateTime.Now.Ticks - _frameTime > Constants.OutputMessagePoolSendMaxTime)
 						_autoSendMessages.RemoveAt (i);
 					
-					if (message.WritableBytes > Constants.MESSAGE_SEND_MIN_SIZE ||
-					   _frameTime - message.FrameTime > Constants.MESSAGE_SEND_MIN_TIME) {
+					if (message.WritableBytes > Constants.OutputMessagePoolSendMinSize ||
+					   _frameTime - message.FrameTime > Constants.OutputMessagePoolSendMinTime) {
 						message.Connection.Write (message);
 						_autoSendMessages.RemoveAt (i);
 					}

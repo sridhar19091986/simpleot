@@ -13,6 +13,7 @@ namespace SimpleOT.Net
         private readonly byte _protocolIndentifier;
 
         private bool _singleSocket;
+        private bool _hasChecksum;
 
         public ProtocolInfoAttribute(string protocolName, byte protocolIndentifier)
         {
@@ -24,6 +25,7 @@ namespace SimpleOT.Net
         public byte ProtocolIndentifier { get { return _protocolIndentifier; } }
 
         public bool SingleSocket { get { return _singleSocket; } set { _singleSocket = value; } }
+        public bool HasChecksum { get { return _hasChecksum; } set { _hasChecksum = value; } }
     }
 
     public abstract class Protocol
@@ -32,8 +34,10 @@ namespace SimpleOT.Net
 		
         private Connection _connection;
 
+        private bool _hasChecksum;
+        private bool _hasXteaEncryption;
+
         private uint[] _xteaKey;
-        private bool _xteaEnabled;
 
         public virtual void OnConnectionOpen() { }
         public virtual void OnConnectionClosed() { }
@@ -43,13 +47,15 @@ namespace SimpleOT.Net
 
         public virtual void OnSendMessage(Message message)
         {
-            message.PutInternalLength(message.WritableBytes - 6);
+            message.PutHeader((ushort)message.ReadableBytes);
 
-            if (_xteaEnabled)
-            {
-            }
+            if (_hasXteaEncryption && _xteaKey != null)
+                Xtea.Encrypt(message, _xteaKey);
+            if (_hasChecksum)
+                message.PutHeader(Adler.Generate(message));
 
-
+            if(_hasXteaEncryption || _hasChecksum)
+                message.PutHeader((ushort)message.ReadableBytes);
         }
 
         public virtual void OnExceptionCaught(Exception exception)
@@ -60,11 +66,9 @@ namespace SimpleOT.Net
 				_connection.Close();
         }
 
-        public void EnableXteaEncryption(uint xteaKey)
-        {
-            _xteaKey = xteaKey;
-            _xteaEnabled = true;
-        }
+        public uint[] XteaKey { get { return _xteaKey; } protected set { _xteaKey = value; } }
+        public bool HasXteaEncryption { get { return _hasXteaEncryption; } protected set { _hasXteaEncryption = value; } }
+        public bool HasChecksum { get { return _hasChecksum; } protected set { _hasChecksum = value; } }
 
         public Connection Connection { get { return _connection; } set { _connection = value; } }
     }

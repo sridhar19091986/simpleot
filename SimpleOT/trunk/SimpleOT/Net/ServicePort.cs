@@ -100,8 +100,8 @@ namespace SimpleOT.Net
             {
                 var connection = new Connection(e.AcceptSocket, this);
 				
-				connection.SendTimeout = Constants.CONNECTION_SEND_TIMEOUT;
-				connection.ReceiveTimeout = Constants.CONNECTION_RECEIVE_TIMEOUT;
+				connection.SendTimeout = Constants.ConnectionSendTimeout;
+				connection.ReceiveTimeout = Constants.ConnectionReceiveTimeout;
 				
 				logger.Debug("Adding conection from {0}.", connection.RemoteAddress);
 				_connections.Add(connection);

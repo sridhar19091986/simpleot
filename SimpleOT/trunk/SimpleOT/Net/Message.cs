@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using SimpleOT.Collections;
-using System.Data;
 
 namespace SimpleOT.Net
 {
     public class Message
     {
         private byte[] _buffer;
+
         private int _readerIndex;
         private int _readerIndexMark;
         private int _writerIndex;
@@ -23,6 +23,8 @@ namespace SimpleOT.Net
         {
             _buffer = buffer;
             _readyOnly = readOnly;
+            _readerIndex = Constants.MessageHeaderMaxSize;
+            _writerIndex = Constants.MessageHeaderMaxSize;
         }
 
         public Message(int capacity, bool readOnly)
@@ -31,7 +33,7 @@ namespace SimpleOT.Net
         }
 
         public Message(bool readOnly)
-            : this(Constants.MESSAGE_DEFAULT_SIZE, readOnly)
+            : this(Constants.MessageDefaultSize, readOnly)
         {
         }
 
@@ -63,8 +65,8 @@ namespace SimpleOT.Net
         public void Clear()
         {
             _connection = null;
-            _writerIndex = 0;
-            _readerIndex = 0;
+            _writerIndex = Constants.MessageHeaderMaxSize;
+            _readerIndex = Constants.MessageHeaderMaxSize;
         }
 
         public void DiscardReadBytes()
@@ -88,7 +90,7 @@ namespace SimpleOT.Net
 
         public byte[] Buffer { get { return _buffer; } }
 
-        public int Capacity { get { return _buffer.Length; } }
+        public int Capacity { get { return _buffer.Length - Constants.MessageHeaderMaxSize; } }
 
         public bool IsReadyOnly { get { return _readyOnly; } }
 
@@ -121,7 +123,7 @@ namespace SimpleOT.Net
         private void VerifyPut(int position, int byteCount)
         {
             if (_readyOnly)
-                throw new ReadOnlyException("You can't modify this message because it's read only.");
+                throw new Exception("You can't modify this message because it's read only.");
 
             if (position < 0)
                 throw new ArgumentException("The position must be non-negative");
@@ -129,34 +131,36 @@ namespace SimpleOT.Net
                 throw new InternalBufferOverflowException("Insufficient space in this message.");
         }
 
-        public unsafe void PutInternalLength(ushort value)
+        public unsafe void PutHeader(ushort value)
         {
+            if (_readerIndex < 2)
+                throw new InvalidOperationException("Insufficient header space.");
+
+            _readerIndex -= 2;
             fixed (byte* bufferPtr = _buffer)
-                *(ushort*)(bufferPtr + 6) = value;
+                *(ushort*)(bufferPtr + _readerIndex) = value;
         }
 
-        public unsafe void PutLength(ushort value)
+        public unsafe void PutHeader(uint value)
         {
-            fixed (byte* bufferPtr = _buffer)
-                *(ushort*)(bufferPtr) = value;
-        }
+            if (_readerIndex < 4)
+                throw new InvalidOperationException("Insufficient header space.");
 
-        public unsafe void PutChecksum(uint value)
-        {
+            _readerIndex -= 4;
             fixed (byte* bufferPtr = _buffer)
-                *(uint*)(bufferPtr + 2) = value;
+                *(uint*)(bufferPtr + _readerIndex) = value;
         }
 
         public void PutByte(byte value)
         {
             VerifyPut(_writerIndex, 1);
-            _buffer[_writerIndex] = value;
+            _buffer[_writerIndex++] = value;
         }
 
         public void PutBoolean(bool value)
         {
             VerifyPut(_writerIndex, 1);
-            _buffer[_writerIndex] = (byte)(value ? 1 : 0);
+            _buffer[_writerIndex++] = (byte)(value ? 1 : 0);
         }
 
         public unsafe void PutUShort(ushort value)
@@ -222,42 +226,27 @@ namespace SimpleOT.Net
 
         #region Get
 
-        private void VerifyGet(int position, int byteCount)
+        private void VerifyGet(int byteCount)
         {
-            if (_writerIndex - position < byteCount)
+            if (_writerIndex - _readerIndex < byteCount)
                 throw new InternalBufferOverflowException("Insufficient space in this message.");
-        }
-
-        public ushort GetLength()
-        {
-            return BitConverter.ToUInt16(_buffer, 0);
-        }
-
-        public uint GetChecksum()
-        {
-            return BitConverter.ToUInt32(_buffer, 2);
-        }
-
-        public ushort GetInternalLength()
-        {
-            return BitConverter.ToUInt16(_buffer, 6);
         }
 
         public byte GetByte()
         {
-            VerifyGet(_readerIndex, 1);
+            VerifyGet(1);
             return _buffer[_readerIndex++];
         }
 
         public bool GetBool()
         {
-            VerifyGet(_readerIndex, 1);
+            VerifyGet(1);
             return _buffer[_readerIndex++] == 1;
         }
 
         public ushort GetUShort()
         {
-            VerifyGet(_readerIndex, 2);
+            VerifyGet(2);
             var value = BitConverter.ToUInt16(_buffer, _readerIndex);
             _readerIndex += 2;
             return value;
@@ -265,7 +254,7 @@ namespace SimpleOT.Net
 
         public short GetShort()
         {
-            VerifyGet(_readerIndex, 2);
+            VerifyGet(2);
             var value = BitConverter.ToInt16(_buffer, _readerIndex);
             _readerIndex += 2;
             return value;
@@ -273,7 +262,7 @@ namespace SimpleOT.Net
 
         public uint GetUInt()
         {
-            VerifyGet(_readerIndex, 4);
+            VerifyGet(4);
             var value = BitConverter.ToUInt32(_buffer, _readerIndex);
             _readerIndex += 4;
             return value;
@@ -281,7 +270,7 @@ namespace SimpleOT.Net
 
         public int GetInt()
         {
-            VerifyGet(_readerIndex, 4);
+            VerifyGet(4);
             var value = BitConverter.ToInt32(_buffer, _readerIndex);
             _readerIndex += 4;
             return value;
@@ -289,7 +278,7 @@ namespace SimpleOT.Net
 
         public ulong GetULong()
         {
-            VerifyGet(_readerIndex, 8);
+            VerifyGet(8);
             var value = BitConverter.ToUInt64(_buffer, _readerIndex);
             _readerIndex += 8;
             return value;
@@ -297,7 +286,7 @@ namespace SimpleOT.Net
 
         public long GetLong()
         {
-            VerifyGet(_readerIndex, 8);
+            VerifyGet(8);
             var value = BitConverter.ToInt64(_buffer, _readerIndex);
             _readerIndex += 8;
             return value;
@@ -306,12 +295,69 @@ namespace SimpleOT.Net
         public string GetString()
         {
             ushort length = GetUShort();
-
-            VerifyGet(_readerIndex, length);
+            VerifyGet(length);
 
             var value = Encoding.Default.GetString(_buffer, _readerIndex, length);
             _readerIndex += length;
             return value;
+        }
+
+        #endregion
+
+        #region Peek
+
+        private void VerifyPeek(int byteCount)
+        {
+            if (_writerIndex - _readerIndex < byteCount)
+                throw new InternalBufferOverflowException("Insufficient space in this message.");
+        }
+
+        public byte PeekByte()
+        {
+            VerifyPeek(1);
+            return _buffer[_readerIndex];
+        }
+
+        public bool PeekBool()
+        {
+            VerifyPeek(1);
+            return _buffer[_readerIndex] == 1;
+        }
+
+        public ushort PeekUShort()
+        {
+            VerifyPeek(2);
+            return BitConverter.ToUInt16(_buffer, _readerIndex);
+        }
+
+        public short PeekShort()
+        {
+            VerifyPeek(2);
+            return BitConverter.ToInt16(_buffer, _readerIndex);
+        }
+
+        public uint PeekUInt()
+        {
+            VerifyPeek(4);
+            return BitConverter.ToUInt32(_buffer, _readerIndex);
+        }
+
+        public int PeekInt()
+        {
+            VerifyPeek(4);
+            return BitConverter.ToInt32(_buffer, _readerIndex);
+        }
+
+        public ulong PeekULong()
+        {
+            VerifyPeek(8);
+            return BitConverter.ToUInt64(_buffer, _readerIndex);
+        }
+
+        public long PeekLong()
+        {
+            VerifyPeek(8);
+            return BitConverter.ToInt64(_buffer, _readerIndex);
         }
 
         #endregion

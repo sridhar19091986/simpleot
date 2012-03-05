@@ -29,7 +29,7 @@ namespace  SimpleOT.Threading
             _queue = new PriorityQueue<Schedule>();
             _lastScheduletId = 0;
             _scheduleIds = new HashSet<uint>();
-			_lastScheduletId = Constants.SCHEDULER_START_ID;
+			_lastScheduletId = Constants.SchedulerStartId;
         }
 
         public void Start()
@@ -99,7 +99,7 @@ namespace  SimpleOT.Threading
                 if (schedule.Id == 0)
                 {
                     if (_lastScheduletId == uint.MaxValue)
-                        _lastScheduletId = Constants.SCHEDULER_START_ID;
+                        _lastScheduletId = Constants.SchedulerStartId;
 
                     schedule.Id = ++_lastScheduletId;
                 }

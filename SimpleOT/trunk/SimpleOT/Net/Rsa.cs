@@ -40,16 +40,16 @@ namespace SimpleOT.Net
             }
         }
 
-        public static void Encrypt(Message message, int offset, int length)
-        {	
-            var encryptedBytes = EncryptRsaEngine.ProcessBlock(message.Buffer, offset, length);
-			Array.Copy(encryptedBytes, 0, message.Buffer, offset, length);
-        }
+        //public static void Encrypt(Message message)
+        //{	
+        //    var encryptedBytes = EncryptRsaEngine.ProcessBlock(message.Buffer, message.ReaderIndex, 128);
+        //    Array.Copy(encryptedBytes, 0, message.Buffer, offset, length);
+        //}
 
-		public static void Decrypt(Message message, int offset, int length) 
+		public static void Decrypt(Message message) 
 		{
-		    var decryptedBytes = DecryptRsaEngine.ProcessBlock(message.Buffer, offset, length);
-			Array.Copy(decryptedBytes, 0, message.Buffer, offset, decryptedBytes.Length);
+		    var decryptedBytes = DecryptRsaEngine.ProcessBlock(message.Buffer, message.ReaderIndex, 128);
+			Array.Copy(decryptedBytes, 0, message.Buffer, message.ReaderIndex, decryptedBytes.Length);
 		}
 	}
 }
