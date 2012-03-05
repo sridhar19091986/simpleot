@@ -32,13 +32,25 @@ namespace SimpleOT.Net
 		
         private Connection _connection;
 
+        private uint[] _xteaKey;
+        private bool _xteaEnabled;
+
         public virtual void OnConnectionOpen() { }
         public virtual void OnConnectionClosed() { }
 
         public virtual void OnReceiveFirstMessage(Message message) { }
         public virtual void OnReceiveMessage(Message message) { }
 
-        public virtual void OnSendMessage(Message message) { }
+        public virtual void OnSendMessage(Message message)
+        {
+            message.PutInternalLength(message.WritableBytes - 6);
+
+            if (_xteaEnabled)
+            {
+            }
+
+
+        }
 
         public virtual void OnExceptionCaught(Exception exception)
         {
@@ -46,6 +58,12 @@ namespace SimpleOT.Net
 			
 			if(_connection != null)
 				_connection.Close();
+        }
+
+        public void EnableXteaEncryption(uint xteaKey)
+        {
+            _xteaKey = xteaKey;
+            _xteaEnabled = true;
         }
 
         public Connection Connection { get { return _connection; } set { _connection = value; } }
