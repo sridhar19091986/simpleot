@@ -26,7 +26,7 @@ namespace SimpleOT
 
             _serviceManager = new ServiceManager(this, _dispatcher, _scheduler);
 
-            _serviceManager.Add<LoginProtocol>(0);
+            _serviceManager.Add<LoginProtocol>(7171);
             _serviceManager.Add<GameProtocol>(7172);
         }
 
