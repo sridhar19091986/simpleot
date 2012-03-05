@@ -92,7 +92,7 @@ namespace SimpleOT.Net
             }
 			
 			_message.Clear();
-            receiveEventArgs.SetBuffer(_message.Buffer, 0, 2);
+            receiveEventArgs.SetBuffer(_message.Buffer, _message.WriterIndex, 2);
             receiveEventArgs.UserToken = ReceiveType.Head;
 
             if (_receiveTimeout > 0)
@@ -120,7 +120,7 @@ namespace SimpleOT.Net
                 }
                 else
                 {
-                    var length = _message.GetLength() + 2;
+                    var length = _message.PeekUShort() + 2;
 
                     if (length > _message.Capacity)
                     {
@@ -130,8 +130,9 @@ namespace SimpleOT.Net
                     {
                         //complete message
 
-                        _message.GetUShort();
-                        var checksumPassed = _message.GetChecksum() == Adler.Generate(_message);
+                        _message.GetUShort(); //discart the header
+
+                        var checksumPassed = _message.PeekUInt() == Adler.Generate(_message);
 
                         if (checksumPassed)
                             _message.GetUInt();
@@ -167,7 +168,7 @@ namespace SimpleOT.Net
                     else
                     {
                         //incomplete message
-                        receiveEventArgs.SetBuffer(_message.Buffer, _message.WriterIndex, length - _message.WriterIndex);
+                        receiveEventArgs.SetBuffer(_message.Buffer, _message.WriterIndex, length - _message.ReadableBytes);
                         receiveEventArgs.UserToken = ReceiveType.Body;
 
                         if (_receiveTimeout > 0)
@@ -201,7 +202,7 @@ namespace SimpleOT.Net
                 if (_sendTimeout > 0)
                     _sendTimeoutScheduleId = _servicePort.Scheduler.Add(_sendTimeout, OnMessageSendTimeout);
 
-                _sendEventArgs.SetBuffer(message.Buffer, 0, message.WriterIndex);
+                _sendEventArgs.SetBuffer(message.Buffer, _message.ReaderIndex, message.ReadableBytes);
                 _sendEventArgs.UserToken = message;
                 _sending = true;
 

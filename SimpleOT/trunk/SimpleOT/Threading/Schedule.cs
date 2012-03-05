@@ -10,8 +10,8 @@ namespace SimpleOT.Threading
         public Schedule(long delay, Action action)
             : base(action, 0)
         {
-            if (delay < Constants.SCHEDULER_MIN_TIME)
-                delay = Constants.SCHEDULER_MIN_TIME;
+            if (delay < Constants.SchedulerMinTime)
+                delay = Constants.SchedulerMinTime;
 
             _lifeCycle = DateTime.Now.AddMilliseconds(delay).Ticks;
         }

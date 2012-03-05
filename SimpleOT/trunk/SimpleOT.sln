@@ -5,7 +5,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT.Libraries", "Simpl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT", "SimpleOT\SimpleOT.csproj", "{5931698F-DB88-4B7C-A2CD-F8746E1A018A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT.Tests", "SimpleOT.Tests\SimpleOT.Tests.csproj", "{65D3207D-D304-40A8-B5C2-8A59152DB734}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{47916906-4320-44A2-8A22-E82B9F119BBE}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		SimpleOT.vsmdi = SimpleOT.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = SimpleOT.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -18,21 +34,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|x86.ActiveCfg = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|x86.Build.0 = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|Any CPU.ActiveCfg = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|Mixed Platforms.ActiveCfg = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|Mixed Platforms.Build.0 = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|x86.ActiveCfg = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|x86.Build.0 = Debug|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|Any CPU.ActiveCfg = Release|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|Mixed Platforms.Build.0 = Release|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|x86.ActiveCfg = Release|x86
-		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|x86.Build.0 = Release|x86
 		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
@@ -48,6 +49,39 @@ Global
 		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|x86.ActiveCfg = Release|Any CPU
 		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|x86.Build.0 = Release|Any CPU
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|x86.ActiveCfg = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Debug|x86.Build.0 = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|Any CPU.ActiveCfg = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|Mixed Platforms.ActiveCfg = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|Mixed Platforms.Build.0 = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|x86.ActiveCfg = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Default|x86.Build.0 = Debug|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|Any CPU.ActiveCfg = Release|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|x86.ActiveCfg = Release|x86
+		{5931698F-DB88-4B7C-A2CD-F8746E1A018A}.Release|x86.Build.0 = Release|x86
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Default|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Default|Mixed Platforms.Build.0 = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Default|x86.ActiveCfg = Debug|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = SimpleOT\SimpleOT.csproj
@@ -58,12 +92,5 @@ Global
 		$0.StandardHeader = $2
 		$2.Text = 
 		$2.IncludeInNewFiles = True
-	EndGlobalSection
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
