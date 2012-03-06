@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SimpleOT.LoginServer
+namespace SimpleOT.Data
 {
 	public class Account
 	{

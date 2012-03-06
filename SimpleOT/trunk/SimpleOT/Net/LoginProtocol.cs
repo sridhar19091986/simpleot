@@ -30,10 +30,17 @@ namespace SimpleOT.Net
             XteaKey = key;
             HasXteaEncryption = true;
 
-            var accountName = message.GetString();
+            var login = message.GetString();
             var password = message.GetString();
 
+            var account = Server.Instance.AccountRepository.FindByLogin(login);
 
+
+        }
+
+        public void SendError(byte code, string message)
+        {
+            //var message = Connection.OutputMessagePool.Get(
         }
 
     }

@@ -12,24 +12,14 @@ namespace SimpleOT.Net
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private readonly Server _server;
-
         private readonly IDictionary<int, ServicePort> _acceptors;
-        private readonly Dispatcher _dispatcher;
-        private readonly Scheduler _scheduler;
 
-        public ServiceManager(Server server, Dispatcher dispatcher, Scheduler scheduler)
+        public ServiceManager(Server server)
         {
             if (server == null)
                 throw new ArgumentNullException("server");
-            if (dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
-            if (scheduler == null)
-                throw new ArgumentNullException("scheduler");
-			
-			_server = server;
-            _dispatcher = dispatcher;
-            _scheduler = scheduler;
 
+			_server = server;
             _acceptors = new Dictionary<int, ServicePort>();
         }
 
@@ -57,7 +47,7 @@ namespace SimpleOT.Net
             }
             else
             {
-                servicePort = new ServicePort(port, _dispatcher, _scheduler);
+                servicePort = new ServicePort(_server, port);
                 servicePort.Open();
             }
 

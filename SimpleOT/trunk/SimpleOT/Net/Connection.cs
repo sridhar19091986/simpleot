@@ -20,8 +20,9 @@ namespace SimpleOT.Net
             Body
         }
 
-        private Socket _socket;
+        private Server _server;
         private ServicePort _servicePort;
+        private Socket _socket;
         private Protocol _protocol;
 
         private Message _message;
@@ -42,17 +43,20 @@ namespace SimpleOT.Net
 		
 		private string _remoteAddress;
 
-        public Connection(Socket socket, ServicePort servicePort)
+        public Connection(Server server, ServicePort servicePort, Socket socket)
         {
-            if (socket == null)
-                throw new ArgumentNullException("socket");
+            if (server == null)
+                throw new ArgumentNullException("server");
             if(servicePort == null)
                 throw new ArgumentNullException("servicePort");
+            if (socket == null)
+                throw new ArgumentNullException("socket");
             if (!socket.Connected)
                 throw new ArgumentException("The socket is not connected.");
 
-            _socket = socket;
+            _server = server;
             _servicePort = servicePort;
+            _socket = socket;
 
             _message = new Message(true);
             _sendLock = new object();
@@ -96,7 +100,7 @@ namespace SimpleOT.Net
             receiveEventArgs.UserToken = ReceiveType.Head;
 
             if (_receiveTimeout > 0)
-                _receiveTimeoutScheduleId = _servicePort.Scheduler.Add(_receiveTimeout, OnMessageReceiveTimeout);
+                _receiveTimeoutScheduleId = _server.Scheduler.Add(_receiveTimeout, OnMessageReceiveTimeout);
 
             if (!_socket.ReceiveAsync(receiveEventArgs))
                 ReceiveCallback(this, receiveEventArgs);
@@ -105,7 +109,7 @@ namespace SimpleOT.Net
         protected void ReceiveCallback(object sender, SocketAsyncEventArgs receiveEventArgs)
         {
             if (_receiveTimeoutScheduleId > 0)
-                _servicePort.Scheduler.Remove(_receiveTimeoutScheduleId);
+                _server.Scheduler.Remove(_receiveTimeoutScheduleId);
 
             if (receiveEventArgs.BytesTransferred > 0 && receiveEventArgs.SocketError == SocketError.Success)
             {
@@ -170,7 +174,7 @@ namespace SimpleOT.Net
                         receiveEventArgs.UserToken = ReceiveType.Body;
 
                         if (_receiveTimeout > 0)
-                            _receiveTimeoutScheduleId = _servicePort.Scheduler.Add(_receiveTimeout, OnMessageReceiveTimeout);
+                            _receiveTimeoutScheduleId = _server.Scheduler.Add(_receiveTimeout, OnMessageReceiveTimeout);
 
                         if (!_socket.ReceiveAsync(receiveEventArgs))
                             ReceiveCallback(this, receiveEventArgs);
@@ -193,12 +197,12 @@ namespace SimpleOT.Net
 
                 if (_sending)
                 {
-                    _servicePort.OutputMessagePool.PutSend(message);
+                    _server.OutputMessagePool.PutSend(message);
                     return;
                 }
 
                 if (_sendTimeout > 0)
-                    _sendTimeoutScheduleId = _servicePort.Scheduler.Add(_sendTimeout, OnMessageSendTimeout);
+                    _sendTimeoutScheduleId = _server.Scheduler.Add(_sendTimeout, OnMessageSendTimeout);
 
                 _sendEventArgs.SetBuffer(message.Buffer, _message.ReaderIndex, message.ReadableBytes);
                 _sendEventArgs.UserToken = message;
@@ -213,14 +217,14 @@ namespace SimpleOT.Net
             lock (_sendLock)
             {
                 if (_sendTimeoutScheduleId > 0)
-                    _servicePort.Scheduler.Remove(_sendTimeoutScheduleId);
+                    _server.Scheduler.Remove(_sendTimeoutScheduleId);
 
                 //TODO: Check if we transfered all the content.
 
                 _pendingSend--;
                 _sending = false;
 
-                _servicePort.OutputMessagePool.Put(e.UserToken as Message);
+                _server.OutputMessagePool.Put(e.UserToken as Message);
             }
         }
 
@@ -255,7 +259,7 @@ namespace SimpleOT.Net
 
             if (_pendingSend > 0)
             {
-                _servicePort.Dispatcher.Add(new Task(CloseSocket));
+                _server.Dispatcher.Add(new Task(CloseSocket));
             }
             else
             {
@@ -375,9 +379,5 @@ namespace SimpleOT.Net
         public int ReceiveTimeout { get { return _receiveTimeout; } set { _receiveTimeout = value; } }
         public int SendTimeout { get { return _sendTimeout; } set { _sendTimeout = value; } }
         public string RemoteAddress { get { return _remoteAddress; } }
-
-        public OutputMessagePool OutputMessagePool { get { return _servicePort.OutputMessagePool; } }
-        public Dispatcher Dispatcher { get { return _servicePort.Dispatcher; } }
-        public Scheduler Scheduler { get { return _servicePort.Scheduler; } }
 	}
 }

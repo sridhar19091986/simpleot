@@ -1,9 +1,8 @@
 using System;
-using SimpleOT.Data;
 using System.Data;
 using NLog;
 
-namespace SimpleOT.LoginServer
+namespace SimpleOT.Data
 {
 	public class AccountRepository : Repository
 	{

@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleOT.LoginServer
+namespace SimpleOT.Data
 {
 	public class Character
 	{
