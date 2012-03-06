@@ -30,8 +30,22 @@ namespace SimpleOT.Net
             XteaKey = key;
             HasXteaEncryption = true;
 
+            if (version != Constants.ClientVersion)
+            {
+                SendError(0x0A, "This server requires client version " + Constants.ClientVersionDesc + ".");
+                Connection.Close();
+                return;
+            }
+
             var login = message.GetString();
             var password = message.GetString();
+
+            if (login.Length < 5)
+            {
+                SendError(0x0A, "Invalid Account Name.");
+                Connection.Close();
+                return;
+            }
 
             var account = Server.Instance.AccountRepository.FindByLogin(login);
 
