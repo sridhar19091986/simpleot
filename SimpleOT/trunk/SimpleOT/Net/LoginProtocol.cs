@@ -35,12 +35,26 @@ namespace SimpleOT.Net
 
             var account = Server.Instance.AccountRepository.FindByLogin(login);
 
+            if (account == null)
+            {
+                SendError(0x0A, "Account name or password is not correct.");
+                Connection.Close();
+                return;
+            }
 
         }
 
-        public void SendError(byte code, string message)
+        public void SendError(byte error, string description)
         {
-            //var message = Connection.OutputMessagePool.Get(
+            var message = Server.OutputMessagePool.Get(Connection, false);
+
+            if (message != null)
+            {
+                message.PutByte(error);
+                message.PutString(description);
+
+                Connection.Write(message);
+            }
         }
 
     }

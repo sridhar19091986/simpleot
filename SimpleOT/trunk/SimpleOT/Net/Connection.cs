@@ -78,6 +78,7 @@ namespace SimpleOT.Net
             {
                 _protocol = protocol;
 				_protocol.Connection = this;
+
                 OnOpen();
             }
 
@@ -204,7 +205,7 @@ namespace SimpleOT.Net
                 if (_sendTimeout > 0)
                     _sendTimeoutScheduleId = _server.Scheduler.Add(_sendTimeout, OnMessageSendTimeout);
 
-                _sendEventArgs.SetBuffer(message.Buffer, _message.ReaderIndex, message.ReadableBytes);
+                _sendEventArgs.SetBuffer(message.Buffer, message.ReaderIndex, message.ReadableBytes);
                 _sendEventArgs.UserToken = message;
                 _sending = true;
 

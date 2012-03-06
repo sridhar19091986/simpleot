@@ -15,13 +15,20 @@ namespace SimpleOT.Net
 {
 	public class Service<T> : IService where T : Protocol, new()
 	{
+        private readonly Server _server;
+
         private readonly string _protocolName;
         private readonly byte _protocolIndentifier;
         private readonly bool _singleSocket;
         private readonly bool _hasChecksum;
 
-        public Service()
+        public Service(Server server)
         {
+            if (server == null)
+                throw new ArgumentNullException("server");
+
+            _server = server;
+
             var attributes = typeof(T).GetCustomAttributes(typeof(ProtocolInfoAttribute), false);
 
             if (attributes == null || attributes.Length == 0)
@@ -37,7 +44,10 @@ namespace SimpleOT.Net
 
         public Protocol CreateProtocol()
         {
-            return new T();
+            Protocol protocol = new T();
+            protocol.Server = _server;
+
+            return protocol;
         }
 
         public string ProtocolName { get { return _protocolName; } }

@@ -25,7 +25,7 @@ namespace SimpleOT.Net
 
         public ServicePort(Server server, int port)
         {
-            if (_server == null)
+            if (server == null)
                 throw new ArgumentNullException("server");
 
             _server = server;
