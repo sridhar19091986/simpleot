@@ -80,7 +80,7 @@ namespace SimpleOT.Scripting
 		/// <param name='state'>
 		/// A pointer to a lua state.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_close")]
+        [DllImport("lua52.dll", EntryPoint="lua_close", CallingConvention=CallingConvention.Cdecl)]
         public static extern void Close(IntPtr state);
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace SimpleOT.Scripting
         /// <param name='state'>
         /// A pointer to a lua state.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_newthread")]
+        [DllImport("lua52.dll", EntryPoint="lua_newthread", CallingConvention=CallingConvention.Cdecl)]
         public static extern IntPtr NewThread(IntPtr state);
 
 		/// <summary>
@@ -117,7 +117,7 @@ namespace SimpleOT.Scripting
 		/// <param name='panicFunction'>
 		/// The new panic function.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_atpanic")]
+        [DllImport("lua52.dll", EntryPoint="lua_atpanic", CallingConvention=CallingConvention.Cdecl)]
         public static extern LuaFunction SetPanicFunction(IntPtr state, LuaFunction panicFunction);
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace SimpleOT.Scripting
         /// <param name='state'>
         /// A pointer to a lua state.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_gettop")]
+        [DllImport("lua52.dll", EntryPoint="lua_gettop", CallingConvention=CallingConvention.Cdecl)]
         public static extern int GetTop(IntPtr state);
 		
 		/// <summary>
@@ -146,7 +146,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// The new stack top index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_settop")]
+        [DllImport("lua52.dll", EntryPoint="lua_settop", CallingConvention=CallingConvention.Cdecl)]
         public static extern void SetTop(IntPtr state, int index);
 		
 		/// <summary>
@@ -158,7 +158,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_pushvalue")]
+        [DllImport("lua52.dll", EntryPoint="lua_pushvalue", CallingConvention=CallingConvention.Cdecl)]
         public static extern void PushValue(IntPtr state, int index);
 		
 		/// <summary>
@@ -171,7 +171,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_remove")]
+        [DllImport("lua52.dll", EntryPoint="lua_remove", CallingConvention=CallingConvention.Cdecl)]
         public static extern void Remove(IntPtr state, int index);
 		
 		/// <summary>
@@ -184,7 +184,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_insert")]
+        [DllImport("lua52.dll", EntryPoint="lua_insert", CallingConvention=CallingConvention.Cdecl)]
         public static extern void Insert(IntPtr state, int index);
 		
 		/// <summary>
@@ -197,7 +197,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_replace")]
+        [DllImport("lua52.dll", EntryPoint="lua_replace", CallingConvention=CallingConvention.Cdecl)]
         public static extern void Replace(IntPtr state, int index);
 		
 		/// <summary>
@@ -208,7 +208,7 @@ namespace SimpleOT.Scripting
 		/// <param name='state'>
 		/// A pointer to a lua state.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_checkstack")]
+        [DllImport("lua52.dll", EntryPoint="lua_checkstack", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CheckStack(IntPtr state);
         
@@ -224,7 +224,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_isnumber")]
+        [DllImport("lua52.dll", EntryPoint="lua_isnumber", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool IsNumber(IntPtr state, int index);
 		
@@ -240,7 +240,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_isstring")]
+        [DllImport("lua52.dll", EntryPoint="lua_isstring", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsString(IntPtr state, int index);
 		
@@ -256,7 +256,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_iscfunction")]
+        [DllImport("lua52.dll", EntryPoint="lua_iscfunction", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsCFunction(IntPtr state, int index);
 		
@@ -272,7 +272,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_isuserdata")]
+        [DllImport("lua52.dll", EntryPoint="lua_isuserdata", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsUserData(IntPtr state, int index);
 		
@@ -291,7 +291,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_type")]
+        [DllImport("lua52.dll", EntryPoint="lua_type", CallingConvention=CallingConvention.Cdecl)]
         public static extern LuaType GetType(IntPtr state, int index);
 		
 		/// <summary>
@@ -306,7 +306,7 @@ namespace SimpleOT.Scripting
 		/// <param name='type'>
 		/// A valid lua type.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_typename")]
+        [DllImport("lua52.dll", EntryPoint="lua_typename", CallingConvention=CallingConvention.Cdecl)]
         public static extern string GetTypeName(IntPtr state, int type);
 		
 		/// <summary>
@@ -324,7 +324,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index2'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_equal")]
+        [DllImport("lua52.dll", EntryPoint="lua_equal", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsEqual(IntPtr state, int index1, int index2);
 		
@@ -343,7 +343,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index2'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_rawequal")]
+        [DllImport("lua52.dll", EntryPoint="lua_rawequal", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsRawEqual(IntPtr state, int index1, int index2);
 		
@@ -362,7 +362,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index2'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_lessthan")]
+        [DllImport("lua52.dll", EntryPoint="lua_lessthan", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsLessThan(IntPtr state, int index1, int index2);
 		
@@ -379,7 +379,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_tonumber")]
+        [DllImport("lua52.dll", EntryPoint="lua_tonumber", CallingConvention=CallingConvention.Cdecl)]
         public static extern double ToNumber(IntPtr state, int index);
 		
 		/// <summary>
@@ -397,7 +397,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_tointeger")]
+        [DllImport("lua52.dll", EntryPoint="lua_tointeger", CallingConvention=CallingConvention.Cdecl)]
         public static extern int ToInteger(IntPtr state, int index);
 		
         /// <summary>
@@ -415,7 +415,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_toboolean")]
+        [DllImport("lua52.dll", EntryPoint="lua_toboolean", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool ToBoolean(IntPtr state, int index);
 		
@@ -442,7 +442,7 @@ namespace SimpleOT.Scripting
 		/// <param name='len'>
 		/// The new string length.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_tolstring")]
+        [DllImport("lua52.dll", EntryPoint="lua_tolstring", CallingConvention=CallingConvention.Cdecl)]
         public static extern string ToString(IntPtr state, int index, UIntPtr len);
 		
 		/// <summary>
@@ -459,7 +459,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_objlen")]
+        [DllImport("lua52.dll", EntryPoint="lua_objlen", CallingConvention=CallingConvention.Cdecl)]
         public static extern int GetObjectLength(IntPtr state, int index);
 		
         /// <summary>
@@ -471,7 +471,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_tocfunction")]
+        [DllImport("lua52.dll", EntryPoint="lua_tocfunction", CallingConvention=CallingConvention.Cdecl)]
         public static extern LuaFunction ToCFunction(IntPtr state, int index);
 		
         /// <summary>
@@ -487,7 +487,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_touserdata")]
+        [DllImport("lua52.dll", EntryPoint="lua_touserdata", CallingConvention=CallingConvention.Cdecl)]
         public static extern IntPtr ToUserData(IntPtr state, int index);
 		
         /// <summary>
@@ -503,7 +503,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_tothread")]
+        [DllImport("lua52.dll", EntryPoint="lua_tothread", CallingConvention=CallingConvention.Cdecl)]
         public static extern IntPtr ToThread(IntPtr state, int index);
 		
         /// <summary>
@@ -520,7 +520,7 @@ namespace SimpleOT.Scripting
         /// <param name='index'>
         /// A stack index.
         /// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_topointer")]
+        [DllImport("lua52.dll", EntryPoint="lua_topointer", CallingConvention=CallingConvention.Cdecl)]
         public static extern IntPtr ToPointer(IntPtr state, int index);
 
 		/// <summary>
@@ -529,7 +529,7 @@ namespace SimpleOT.Scripting
 		/// <param name='state'>
 		/// A pointer to a lua state.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_pushnil")]
+        [DllImport("lua52.dll", EntryPoint="lua_pushnil", CallingConvention=CallingConvention.Cdecl)]
         public static extern void PushNil(IntPtr state);
 		
 		/// <summary>
@@ -541,7 +541,7 @@ namespace SimpleOT.Scripting
 		/// <param name='n'>
 		/// The value to be pushed.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_pushnumber")]
+        [DllImport("lua52.dll", EntryPoint="lua_pushnumber", CallingConvention=CallingConvention.Cdecl)]
         public static extern void PushNumber(IntPtr state, double n);
 
 		/// <summary>
@@ -553,7 +553,7 @@ namespace SimpleOT.Scripting
 		/// <param name='n'>
 		/// The value to be pushed.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_pushinteger")]
+        [DllImport("lua52.dll", EntryPoint="lua_pushinteger", CallingConvention=CallingConvention.Cdecl)]
         public static extern void PushInteger(IntPtr state, int n);
 		
 		/// <summary>
@@ -568,7 +568,7 @@ namespace SimpleOT.Scripting
 		/// <param name='value'>
 		/// The value to be pushed.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_pushstring")]
+        [DllImport("lua52.dll", EntryPoint="lua_pushstring", CallingConvention=CallingConvention.Cdecl)]
         public static extern void PushString(IntPtr state, string value);
 		
 		/// <summary>
@@ -590,7 +590,7 @@ namespace SimpleOT.Scripting
 		/// </param>
 		/// <param name='n'>
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_pushcclosure")]
+        [DllImport("lua52.dll", EntryPoint="lua_pushcclosure", CallingConvention=CallingConvention.Cdecl)]
         public static extern void PushCClosure(IntPtr state, [MarshalAs(UnmanagedType.FunctionPtr)] LuaFunction func, int n);
 
 		/// <summary>
@@ -602,7 +602,7 @@ namespace SimpleOT.Scripting
 		/// <param name='value'>
 		/// The value to be pushed.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_pushboolean")]
+        [DllImport("lua52.dll", EntryPoint="lua_pushboolean", CallingConvention=CallingConvention.Cdecl)]
         public static extern void PushBoolean(IntPtr state, [MarshalAs(UnmanagedType.Bool)] bool b);
 
 		/// <summary>
@@ -618,7 +618,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_gettable")]
+        [DllImport("lua52.dll", EntryPoint="lua_gettable", CallingConvention=CallingConvention.Cdecl)]
         public static extern void GetTable(IntPtr state, int index);
 		
 		/// <summary>
@@ -631,7 +631,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_getfield")]
+        [DllImport("lua52.dll", EntryPoint="lua_getfield", CallingConvention=CallingConvention.Cdecl)]
         public static extern void GetField(IntPtr state, int index, string s);
 		
 		/// <summary>
@@ -643,7 +643,7 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_rawget")]
+        [DllImport("lua52.dll", EntryPoint="lua_rawget", CallingConvention=CallingConvention.Cdecl)]
         public static extern void GetRaw(IntPtr state, int index);
 		
 		/// <summary>
@@ -657,7 +657,7 @@ namespace SimpleOT.Scripting
 		/// </param>
 		/// <param name='n'>
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_rawgeti")]
+        [DllImport("lua52.dll", EntryPoint="lua_rawgeti", CallingConvention=CallingConvention.Cdecl)]
         public static extern void GetRaw(IntPtr state, int index, int n);
 		
 		/// <summary>
@@ -674,7 +674,7 @@ namespace SimpleOT.Scripting
 		/// <param name='nrec'>
 		/// The number of non-array elements.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_createtable")]
+        [DllImport("lua52.dll", EntryPoint="lua_createtable", CallingConvention=CallingConvention.Cdecl)]
         public static extern void CreateTable(IntPtr state, int narr, int nrec);
 		
 		/// <summary>
@@ -691,28 +691,28 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_getmetatable")]
+        [DllImport("lua52.dll", EntryPoint="lua_getmetatable", CallingConvention=CallingConvention.Cdecl)]
         public static extern int GetMetaTable(IntPtr state, int index);
 		
-        [DllImport("lua52.dll", EntryPoint="lua_getfenv")]
+        [DllImport("lua52.dll", EntryPoint="lua_getfenv", CallingConvention=CallingConvention.Cdecl)]
         public static extern void GetEnvironmentTable(IntPtr state, int index);
 
-        [DllImport("lua52.dll", EntryPoint="lua_settable")]
+        [DllImport("lua52.dll", EntryPoint="lua_settable", CallingConvention=CallingConvention.Cdecl)]
         public static extern void SetTable(IntPtr state, int index);
 		
-        [DllImport("lua52.dll", EntryPoint="lua_setfield")]
+        [DllImport("lua52.dll", EntryPoint="lua_setfield", CallingConvention=CallingConvention.Cdecl)]
         public static extern void SetField(IntPtr state, int index, string s);
 
-        [DllImport("lua52.dll", EntryPoint="lua_rawset")]
+        [DllImport("lua52.dll", EntryPoint="lua_rawset", CallingConvention=CallingConvention.Cdecl)]
         public static extern void SetRaw(IntPtr state, int index);
 		
-        [DllImport("lua52.dll", EntryPoint="lua_rawseti")]
+        [DllImport("lua52.dll", EntryPoint="lua_rawseti", CallingConvention=CallingConvention.Cdecl)]
         public static extern void SetRaw(IntPtr state, int index, int n);
 		
-        [DllImport("lua52.dll", EntryPoint="lua_setmetatable")]
+        [DllImport("lua52.dll", EntryPoint="lua_setmetatable", CallingConvention=CallingConvention.Cdecl)]
         public static extern int SetMetaTable(IntPtr state, int index);
 		
-        [DllImport("lua52.dll", EntryPoint="lua_setfenv")]
+        [DllImport("lua52.dll", EntryPoint="lua_setfenv", CallingConvention=CallingConvention.Cdecl)]
         public static extern int SetEnvironmentTable(IntPtr state, int index);
 
 		/// <summary>
@@ -755,7 +755,7 @@ namespace SimpleOT.Scripting
 		/// <param name='nresults'>
 		/// The number of results
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_call")]
+        [DllImport("lua52.dll", EntryPoint="lua_call", CallingConvention=CallingConvention.Cdecl)]
         public static extern void Call(IntPtr state, int nargs, int nresults);
 		
 		/// <summary>
@@ -797,16 +797,16 @@ namespace SimpleOT.Scripting
 		/// <param name='errfunc'>
 		/// Errfunc.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_pcall")]
-        public static extern int ProtectedCall(IntPtr state, int nargs, int nresults, int errfunc);
+        [DllImport("lua52.dll", EntryPoint = "lua_pcallk", CallingConvention = CallingConvention.Cdecl)]
+        public static extern LuaError ProtectedCall(IntPtr state, int nargs, int nresults, int errfunc, int ctx, LuaFunction k);
 		
-        [DllImport("lua52.dll", EntryPoint="lua_gc")]
+        [DllImport("lua52.dll", EntryPoint="lua_gc", CallingConvention=CallingConvention.Cdecl)]
         public static extern int GC(IntPtr state, int what, int data);
 
-        [DllImport("lua52.dll", EntryPoint="lua_error")]
+        [DllImport("lua52.dll", EntryPoint="lua_error", CallingConvention=CallingConvention.Cdecl)]
         public static extern int Error(IntPtr state);
 		
-        [DllImport("lua52.dll", EntryPoint="lua_next")]
+        [DllImport("lua52.dll", EntryPoint="lua_next", CallingConvention=CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool Next(IntPtr state, int index);
 
@@ -821,7 +821,7 @@ namespace SimpleOT.Scripting
 		/// <param name='n'>
 		/// The number of values.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_concat")]
+        [DllImport("lua52.dll", EntryPoint="lua_concat", CallingConvention=CallingConvention.Cdecl)]
         public static extern void Concat(IntPtr state, int n);
 		
 		/// <summary>
@@ -840,41 +840,41 @@ namespace SimpleOT.Scripting
 		/// <param name='s'>
 		/// The string to be loaded.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="luaL_loadstring")]
-        public static extern int LoadString(IntPtr state, string s);
+        [DllImport("lua52.dll", EntryPoint="luaL_loadstring", CallingConvention=CallingConvention.Cdecl)]
+        public static extern LuaError LoadString(IntPtr state, string s);
 
-        [DllImport("lua52.dll", EntryPoint="luaL_newstate")]
+        [DllImport("lua52.dll", EntryPoint="luaL_newstate", CallingConvention=CallingConvention.Cdecl)]
         public static extern IntPtr NewState();
 
-        [DllImport("lua52.dll", EntryPoint="luaopen_base")]
+        [DllImport("lua52.dll", EntryPoint="luaopen_base", CallingConvention=CallingConvention.Cdecl)]
         public static extern int OpenBase(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaopen_debug")]
+        [DllImport("lua52.dll", EntryPoint="luaopen_debug", CallingConvention=CallingConvention.Cdecl)]
         public static extern int OpenDebug(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaopen_io")]
+        [DllImport("lua52.dll", EntryPoint="luaopen_io", CallingConvention=CallingConvention.Cdecl)]
         public static extern int OpenIO(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaopen_math")]
+        [DllImport("lua52.dll", EntryPoint="luaopen_math", CallingConvention=CallingConvention.Cdecl)]
         public static extern int OpenMath(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaopen_os")]
+        [DllImport("lua52.dll", EntryPoint="luaopen_os", CallingConvention=CallingConvention.Cdecl)]
         public static extern int OpenOS(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaopen_package")]
+        [DllImport("lua52.dll", EntryPoint="luaopen_package", CallingConvention=CallingConvention.Cdecl)]
         public static extern int OpenPackage(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaopen_string")]
+        [DllImport("lua52.dll", EntryPoint="luaopen_string", CallingConvention=CallingConvention.Cdecl)]
         public static extern int OpenString(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaopen_table")]
+        [DllImport("lua52.dll", EntryPoint="luaopen_table", CallingConvention=CallingConvention.Cdecl)]
         public static extern int OpenTable(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaL_openlibs")]
+        [DllImport("lua52.dll", EntryPoint="luaL_openlibs", CallingConvention=CallingConvention.Cdecl)]
         public static extern void OpenLibs(IntPtr state);
 
-        [DllImport("lua52.dll", EntryPoint="luaL_loadfile")]
-        public static extern LuaError LoadFile(IntPtr state, string s);
+        [DllImport("lua52.dll", EntryPoint = "luaL_loadfilex", CallingConvention = CallingConvention.Cdecl)]
+        public static extern LuaError LoadFile(IntPtr state, string fileName, string mode);
 
         #endregion
 
@@ -946,6 +946,54 @@ namespace SimpleOT.Scripting
             GetField(state, GLOBALSINDEX, s);
         }
 
+        public static string GetGlobalString(IntPtr state, string s)
+        {
+            GetGlobal(state, s);
+
+            if (!IsString(state, -1))
+            {
+                Pop(state, 1);
+                return null;
+            }
+
+            var ret = ToString(state, -1);
+            Pop(state, 1);
+
+            return ret;
+        }
+
+        public static long GetGlobalLong(IntPtr state, string s)
+        {
+            GetGlobal(state, s);
+
+            if (!IsNumber(state, -1))
+            {
+                Pop(state, 1);
+                return 0;
+            }
+
+            var ret = (long)ToNumber(state, -1);
+            Pop(state, 1);
+
+            return ret;
+        }
+
+        public static double GetGlobalDouble(IntPtr state, string s)
+        {
+            GetGlobal(state, s);
+
+            if (!IsNumber(state, -1))
+            {
+                Pop(state, 1);
+                return 0D;
+            }
+
+            var ret = ToNumber(state, -1);
+            Pop(state, 1);
+
+            return ret;
+        }
+
         public static string ToString(IntPtr state, int i)
         {
             return ToString(state, i, UIntPtr.Zero);
@@ -956,18 +1004,24 @@ namespace SimpleOT.Scripting
             return NewState();
         }
 
-        public static int DoString(IntPtr state, string s)
+        public static LuaError DoString(IntPtr state, string s)
         {
-            if (LoadString(state, s) != 0)
-                return 1;
-            return ProtectedCall(state, 0, MULTRET, 0);
+            var ret = LoadString(state, s);
+
+            if (ret != LuaError.None)
+                return ret;
+
+            return ProtectedCall(state, 0, MULTRET, 0, 0, null);
         }
 
-        public static int DoFile(IntPtr state, string s)
+        public static LuaError DoFile(IntPtr state, string fileName)
         {
-            if (LoadFile(state, s) != LuaError.None)
-                return 1;
-            return ProtectedCall(state, 0, MULTRET, 0);
+            var ret = LoadFile(state, fileName, null);
+            
+            if (ret != LuaError.None)
+                return ret;
+
+            return ProtectedCall(state, 0, MULTRET, 0, 0, null);
         }
 
         public static void MoveValue(IntPtr from, IntPtr to)
@@ -1013,6 +1067,17 @@ namespace SimpleOT.Scripting
             }
             // Pop the value we just read
             Pop(from, 1);
+        }
+
+        public static string PopString(IntPtr state)
+        {
+            Pop(state, 1);
+            var value = string.Empty;
+
+            if (IsString(state, 0))
+                value = ToString(state, 0);
+
+            return value;
         }
 
         #endregion

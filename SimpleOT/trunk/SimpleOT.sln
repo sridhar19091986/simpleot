@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT.Data", "SimpleOT.Data\SimpleOT.Data.csproj", "{B89136AB-7354-483D-B274-D3FE181B4E20}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -79,6 +81,21 @@ Global
 		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{65D3207D-D304-40A8-B5C2-8A59152DB734}.Release|x86.ActiveCfg = Release|Any CPU
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Debug|x86.ActiveCfg = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Debug|x86.Build.0 = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Default|Any CPU.ActiveCfg = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Default|Mixed Platforms.ActiveCfg = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Default|Mixed Platforms.Build.0 = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Default|x86.ActiveCfg = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Default|x86.Build.0 = Debug|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Release|Any CPU.ActiveCfg = Release|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Release|Mixed Platforms.Build.0 = Release|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Release|x86.ActiveCfg = Release|x86
+		{B89136AB-7354-483D-B274-D3FE181B4E20}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

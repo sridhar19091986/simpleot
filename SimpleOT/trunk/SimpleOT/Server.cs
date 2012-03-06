@@ -6,6 +6,7 @@ using SimpleOT.Net;
 using SimpleOT.Threading;
 using SimpleOT.Data;
 using SimpleOT.Collections;
+using SimpleOT.Scripting;
 
 namespace SimpleOT
 {
@@ -21,6 +22,10 @@ namespace SimpleOT
         private readonly IConnectionFactory _connectionFactory;
         private readonly AccountRepository _accountRepository;
 
+        private readonly ScriptEngine _scriptEngine;
+
+        private readonly ConfigManager _configManager;
+
         public Server()
         {
             _dispatcher = new Dispatcher();
@@ -29,11 +34,15 @@ namespace SimpleOT
             _dispatcher.Start();
             _scheduler.Start();
 
-            _outputMessagePool = new OutputMessagePool(10, 100);
-            _dispatcher.AfterDispatchTask += _outputMessagePool.ProcessEnqueueMessages;
-
             _connectionFactory = new PostgresConnectionFactory();
             _accountRepository = new AccountRepository(_connectionFactory);
+
+            _scriptEngine = new ScriptEngine();
+
+            _configManager = new ConfigManager(this);
+
+            _outputMessagePool = new OutputMessagePool(10, 100);
+            _dispatcher.AfterDispatchTask += _outputMessagePool.ProcessEnqueueMessages;
 
             _serviceManager = new ServiceManager(this);
 
@@ -55,6 +64,8 @@ namespace SimpleOT
         public Scheduler Scheduler { get { return _scheduler; } }
 
         public OutputMessagePool OutputMessagePool { get { return _outputMessagePool; } }
+
+        public ScriptEngine ScriptEngine { get { return _scriptEngine; } }
 
         static void Main(string[] args)
         {
