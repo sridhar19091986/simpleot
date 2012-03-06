@@ -25,7 +25,7 @@ namespace SimpleOT.Net
 
         public void Add<T>(int port) where T : Protocol, new()
         {
-            var service = new Service<T>();
+            var service = new Service<T>(_server);
 
             if (port <= 0)
             {
