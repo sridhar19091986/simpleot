@@ -2,11 +2,11 @@ using System;
 
 namespace SimpleOT.Scripting
 {
-	public class LuaScriptContext : IScriptContext
+	public class ScriptContext
 	{
 		private IntPtr _state;
 		
-		public LuaScriptContext (IntPtr state)
+		public ScriptContext (ScriptEngine scriptEngine, IntPtr state)
 		{
 			this._state = state;
 		}
