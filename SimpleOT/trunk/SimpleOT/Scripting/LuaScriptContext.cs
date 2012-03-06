@@ -10,8 +10,8 @@ namespace SimpleOT.Scripting
 		{
 			this._state = state;
 		}
-		
-		public IntPtr State{get{return _state;}}
+
+        public IntPtr State { get { return _state; } }
 	}
 }
 
