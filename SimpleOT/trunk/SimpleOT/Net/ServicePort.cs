@@ -14,38 +14,25 @@ namespace SimpleOT.Net
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private readonly Server _server;
+
         private readonly ISet<IService> _services;
 		private readonly ISet<Connection> _connections;
-		private Socket _acceptSocket;
-        
-        private readonly Dispatcher _dispatcher;
-		private readonly Scheduler _scheduler;
 
-		private readonly OutputMessagePool _outputMessagePool;
-		
+		private Socket _acceptSocket;
+
         private readonly int _port;
 
-        public ServicePort(int port, Dispatcher dispatcher, Scheduler scheduler)
+        public ServicePort(Server server, int port)
         {
-            if(dispatcher == null)
-                throw new ArgumentNullException("dispatcher");
-			if(scheduler == null)
-				throw new ArgumentNullException("scheduler");
+            if (_server == null)
+                throw new ArgumentNullException("server");
 
+            _server = server;
 			_port = port;
-            _dispatcher = dispatcher;
-            _scheduler = scheduler;
 
             _services = new HashSet<IService>();
 			_connections = new HashSet<Connection>();
-			_outputMessagePool = new OutputMessagePool(10, 100);
-
-            _dispatcher.AfterDispatchTask += _outputMessagePool.ProcessEnqueueMessages;
-        }
-
-        ~ServicePort()
-        {
-            _dispatcher.AfterDispatchTask -= _outputMessagePool.ProcessEnqueueMessages;
         }
 
 		public void Open()
@@ -98,7 +85,7 @@ namespace SimpleOT.Net
 
             lock (_connections)
             {
-                var connection = new Connection(e.AcceptSocket, this);
+                var connection = new Connection(_server, this, e.AcceptSocket);
 				
 				connection.SendTimeout = Constants.ConnectionSendTimeout;
 				connection.ReceiveTimeout = Constants.ConnectionReceiveTimeout;
@@ -141,10 +128,6 @@ namespace SimpleOT.Net
 			
             return null;
         }
-
-        public OutputMessagePool OutputMessagePool { get { return _outputMessagePool; } }
-        public Dispatcher Dispatcher { get { return _dispatcher; } }
-        public Scheduler Scheduler { get { return _scheduler; } }
 
         public bool SingleSocket { get { return _services.Count > 0 && _services.First().SingleSocket; } }
         public object ProtocolNames { get { return String.Join(", ", _services.Select(x => x.ProtocolName)); } }

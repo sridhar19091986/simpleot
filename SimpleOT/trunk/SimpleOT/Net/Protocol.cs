@@ -31,7 +31,8 @@ namespace SimpleOT.Net
     public abstract class Protocol
     {
 		private static Logger logger = LogManager.GetCurrentClassLogger();
-		
+
+        private Server _server;
         private Connection _connection;
 
         private bool _hasChecksum;
@@ -83,5 +84,6 @@ namespace SimpleOT.Net
         public bool HasChecksum { get { return _hasChecksum; } protected set { _hasChecksum = value; } }
 
         public Connection Connection { get { return _connection; } set { _connection = value; } }
+        public Server Server { get { return _server; } set { _server = value; } }
     }
 }
