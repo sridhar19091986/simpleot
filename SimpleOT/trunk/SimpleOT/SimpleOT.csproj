@@ -59,13 +59,19 @@
     <Compile Include="Collections\OutputMessagePool.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Data\Account.cs" />
+    <Compile Include="Data\PlayerRepository.cs" />
+    <Compile Include="Domain\Account.cs" />
     <Compile Include="Data\AccountRepository.cs" />
-    <Compile Include="Data\Character.cs" />
     <Compile Include="ConfigManager.cs" />
     <Compile Include="Data\IConnectionFactory.cs" />
+    <Compile Include="Domain\Creature.cs" />
+    <Compile Include="Domain\Item.cs" />
+    <Compile Include="Domain\Monster.cs" />
+    <Compile Include="Domain\Npc.cs" />
+    <Compile Include="Domain\Player.cs" />
     <Compile Include="Data\PostgresConnectionFactory.cs" />
     <Compile Include="Data\Repository.cs" />
+    <Compile Include="Domain\Thing.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Net\Adler.cs" />
@@ -95,7 +101,6 @@
     <None Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="schema.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleOT.Data\SimpleOT.Data.csproj">
@@ -106,6 +111,9 @@
       <Project>{74E08E08-6901-4185-8378-E17CF6B143DC}</Project>
       <Name>SimpleOT.Libraries</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="schema.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
