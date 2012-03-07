@@ -72,6 +72,7 @@ namespace SimpleOT.Data
             catch (Exception exception)
             {
                 logger.ErrorException("Can't load player.", exception);
+                return null;
             }
 
             return player;

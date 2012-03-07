@@ -62,7 +62,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountRepositoryTest.cs" />
     <Compile Include="AdlerTest.cs" />
+    <Compile Include="PlayerRepositoryTest.cs" />
     <Compile Include="MessageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XteaTest.cs" />

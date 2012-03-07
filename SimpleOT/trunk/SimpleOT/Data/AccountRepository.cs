@@ -33,7 +33,7 @@ namespace SimpleOT.Data
                         var warnings = command.CreateParameter();
                         warnings.ParameterName = "@warnings";
                         warnings.Value = account.Warnings;
-                        warnings.DbType = DbType.Int32;
+                        warnings.DbType = DbType.Int16;
                         command.Parameters.Add(warnings);
 
                         var accountId = command.CreateParameter();
@@ -81,7 +81,7 @@ namespace SimpleOT.Data
                                 account.Name = (string)reader["name"];
                                 account.Password = (string)reader["password"];
                                 account.PremmiumEnd = (long)reader["premend"];
-                                account.Warnings = (int)reader["warnings"];
+                                account.Warnings = (short)reader["warnings"];
 
                                 LoadCharacters(account);
                             }
@@ -92,6 +92,7 @@ namespace SimpleOT.Data
             catch (Exception exception)
             {
                 logger.ErrorException("Can't load account.", exception);
+                return null;
             }
 
             return account;
