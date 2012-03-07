@@ -970,14 +970,14 @@ namespace SimpleOT.Scripting
             return ret;
         }
 
-        public static long GetGlobalLong(IntPtr state, string s)
+        public static long? GetGlobalLong(IntPtr state, string name)
         {
-            GetGlobal(state, s);
+            GetGlobal(state, name);
 
             if (!IsNumber(state, -1))
             {
                 Pop(state, 1);
-                return 0;
+                return null;
             }
 
             var ret = (long)ToNumber(state, -1);
@@ -986,14 +986,14 @@ namespace SimpleOT.Scripting
             return ret;
         }
 
-        public static int GetGlobalInteger(IntPtr state, string s)
+        public static int? GetGlobalInteger(IntPtr state, string name)
         {
-            GetGlobal(state, s);
+            GetGlobal(state, name);
 
             if (!IsNumber(state, -1))
             {
                 Pop(state, 1);
-                return 0;
+                return null;
             }
 
             var ret = ToInteger(state, -1);
@@ -1002,14 +1002,14 @@ namespace SimpleOT.Scripting
             return ret;
         }
 
-        public static double GetGlobalDouble(IntPtr state, string s)
+        public static double? GetGlobalDouble(IntPtr state, string name)
         {
-            GetGlobal(state, s);
+            GetGlobal(state, name);
 
             if (!IsNumber(state, -1))
             {
                 Pop(state, 1);
-                return 0D;
+                return null;
             }
 
             var ret = ToNumber(state, -1);

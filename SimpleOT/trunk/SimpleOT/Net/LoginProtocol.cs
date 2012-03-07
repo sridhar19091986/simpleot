@@ -30,10 +30,9 @@ namespace SimpleOT.Net
             XteaKey = key;
             HasXteaEncryption = true;
 
-            if (version != Constants.ClientVersion)
+            if (version != Constants.ClientVersionNumber)
             {
-                SendError(0x0A, "This server requires client version " + Constants.ClientVersionDesc + ".");
-                Connection.Close();
+                Disconnect(0x0A, "This server requires client version " + Constants.ClientVersion + ".");
                 return;
             }
 
@@ -42,8 +41,7 @@ namespace SimpleOT.Net
 
             if (login.Length < 5)
             {
-                SendError(0x0A, "Invalid Account Name.");
-                Connection.Close();
+                Disconnect(0x0A, "Invalid Account Name.");
                 return;
             }
 
@@ -51,25 +49,10 @@ namespace SimpleOT.Net
 
             if (account == null)
             {
-                SendError(0x0A, "Account name or password is not correct.");
-                Connection.Close();
+                Disconnect(0x0A, "Account name or password is not correct.");
                 return;
             }
 
         }
-
-        public void SendError(byte error, string description)
-        {
-            var message = Server.OutputMessagePool.Get(Connection, false);
-
-            if (message != null)
-            {
-                message.PutByte(error);
-                message.PutString(description);
-
-                Connection.Write(message);
-            }
-        }
-
     }
 }
