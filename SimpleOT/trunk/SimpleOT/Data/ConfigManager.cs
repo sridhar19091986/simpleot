@@ -24,7 +24,8 @@ namespace SimpleOT.Data
 
             _server.ScriptEngine.LoadFile("config.lua", _scriptContext);
 
-            
+            LoginPort = _server.ScriptEngine.GetGlobalInteger(_scriptContext, "login_port");
+            GamePort = _server.ScriptEngine.GetGlobalInteger(_scriptContext, "game_port");
 
         }
     }

@@ -379,8 +379,8 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_tonumber", CallingConvention=CallingConvention.Cdecl)]
-        public static extern double ToNumber(IntPtr state, int index);
+        [DllImport("lua52.dll", EntryPoint = "lua_tonumberx", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double ToNumber(IntPtr state, int index, IntPtr isnum);
 		
 		/// <summary>
 		/// Converts the Lua value at the given acceptable index to the signed integral type lua_Integer.
@@ -397,8 +397,8 @@ namespace SimpleOT.Scripting
 		/// <param name='index'>
 		/// A stack index.
 		/// </param>
-        [DllImport("lua52.dll", EntryPoint="lua_tointeger", CallingConvention=CallingConvention.Cdecl)]
-        public static extern int ToInteger(IntPtr state, int index);
+        [DllImport("lua52.dll", EntryPoint = "lua_tointegerx", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int ToInteger(IntPtr state, int index, IntPtr isnum);
 		
         /// <summary>
         /// Converts the Lua value at the given acceptable index to a C boolean value (0 or 1). 
@@ -876,9 +876,22 @@ namespace SimpleOT.Scripting
         [DllImport("lua52.dll", EntryPoint = "luaL_loadfilex", CallingConvention = CallingConvention.Cdecl)]
         public static extern LuaError LoadFile(IntPtr state, string fileName, string mode);
 
+        [DllImport("lua52.dll", EntryPoint = "lua_getglobal", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void GetGlobal(IntPtr state, string s);
+
         #endregion
 
         #region Macros
+
+        public static double ToNumber(IntPtr state, int index)
+        {
+            return ToNumber(state, index, IntPtr.Zero);
+        }
+
+        public static int ToInteger(IntPtr state, int index)
+        {
+            return ToInteger(state, index, IntPtr.Zero);
+        }
 
         public static void Pop(IntPtr state, int amount)
         {
@@ -941,11 +954,6 @@ namespace SimpleOT.Scripting
             SetField(state, GLOBALSINDEX, s);
         }
 
-        public static void GetGlobal(IntPtr state, string s)
-        {
-            GetField(state, GLOBALSINDEX, s);
-        }
-
         public static string GetGlobalString(IntPtr state, string s)
         {
             GetGlobal(state, s);
@@ -973,6 +981,22 @@ namespace SimpleOT.Scripting
             }
 
             var ret = (long)ToNumber(state, -1);
+            Pop(state, 1);
+
+            return ret;
+        }
+
+        public static int GetGlobalInteger(IntPtr state, string s)
+        {
+            GetGlobal(state, s);
+
+            if (!IsNumber(state, -1))
+            {
+                Pop(state, 1);
+                return 0;
+            }
+
+            var ret = ToInteger(state, -1);
             Pop(state, 1);
 
             return ret;
