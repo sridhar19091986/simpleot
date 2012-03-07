@@ -4,8 +4,8 @@ namespace SimpleOT
 {
 	public static class Constants
 	{
-        public const ushort ClientVersion = 861;
-        public const string ClientVersionDesc = "8.61";
+        public const ushort ClientVersionNumber = 861;
+        public const string ClientVersion = "8.61";
 
         public const int MessageHeaderMaxSize = 32; // 2
 		public const int MessageDefaultSize = 16384; // 16kb

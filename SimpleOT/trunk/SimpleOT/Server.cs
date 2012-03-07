@@ -7,11 +7,14 @@ using SimpleOT.Threading;
 using SimpleOT.Data;
 using SimpleOT.Collections;
 using SimpleOT.Scripting;
+using NLog;
 
 namespace SimpleOT
 {
     public class Server
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
 		public static Server Instance;
 		
         private readonly Dispatcher _dispatcher;
@@ -21,8 +24,6 @@ namespace SimpleOT
         private readonly ServiceManager _serviceManager;
         private readonly IConnectionFactory _connectionFactory;
         private readonly AccountRepository _accountRepository;
-
-        private readonly ScriptEngine _scriptEngine;
 
         private readonly ConfigManager _configManager;
 
@@ -36,8 +37,6 @@ namespace SimpleOT
 
             _connectionFactory = new PostgresConnectionFactory();
             _accountRepository = new AccountRepository(_connectionFactory);
-
-            _scriptEngine = new ScriptEngine();
 
             _configManager = new ConfigManager(this);
 
@@ -65,11 +64,18 @@ namespace SimpleOT
 
         public OutputMessagePool OutputMessagePool { get { return _outputMessagePool; } }
 
-        public ScriptEngine ScriptEngine { get { return _scriptEngine; } }
+        public ConfigManager ConfigManager { get { return _configManager; } }
 
         static void Main(string[] args)
         {
-            Instance = new Server();
+            try
+            {
+                Instance = new Server();
+            }
+            catch (Exception e)
+            {
+                logger.FatalException("Unable to start the server.", e);
+            }
         }
     }
 }

@@ -260,7 +260,8 @@ namespace SimpleOT.Net
 
             if (_pendingSend > 0)
             {
-                _server.Dispatcher.Add(new Task(CloseSocket));
+                //give some more time.
+                _server.Scheduler.Add(100, CloseSocket);
             }
             else
             {

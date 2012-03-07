@@ -40,11 +40,13 @@ namespace SimpleOT.Net
 
         private uint[] _xteaKey;
 
+        private Message _outputBuffer;
+
         public virtual void OnConnectionOpen() { }
         public virtual void OnConnectionClosed() { }
 
         public virtual void OnReceiveFirstMessage(Message message) { }
-        
+
         public virtual void OnReceiveMessage(Message message) 
         {
             if (_hasChecksum && message.GetUInt() != Adler.Generate(message))
@@ -77,6 +79,34 @@ namespace SimpleOT.Net
 			
 			if(_connection != null)
 				_connection.Close();
+        }
+
+        protected void Disconnect(byte error, string description)
+        {
+            var message = Server.OutputMessagePool.Get(Connection, false);
+
+            if (message != null)
+            {
+                message.PutByte(error);
+                message.PutString(description);
+
+                _connection.Write(message);
+            }
+
+            _connection.Close();
+        }
+
+        protected Message GetOutputBuffer()
+        {
+            if (_outputBuffer != null && _outputBuffer.ReadableBytes < Constants.MessageDefaultSize - 4096)
+                return _outputBuffer;
+            else if (_connection != null)
+            {
+                _outputBuffer = _server.OutputMessagePool.Get(_connection, true);
+                return _outputBuffer;
+            }
+
+            return null;
         }
 
         public uint[] XteaKey { get { return _xteaKey; } protected set { _xteaKey = value; } }
