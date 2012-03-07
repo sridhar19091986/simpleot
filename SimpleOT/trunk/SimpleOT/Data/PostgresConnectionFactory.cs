@@ -14,9 +14,8 @@ namespace SimpleOT.Data
           		host, port, userId, password, database);
 		}
 		
-		public PostgresConnectionFactory () : this("127.0.0.1", 5432, "postgres", "postgres", "simpleot") { }
+		public PostgresConnectionFactory () : this("127.0.0.1", 5432, "postgres", "postgres", "otserv") { }
 		
-		#region IConnectionFactory implementation
 		public IDbConnection Get ()
 		{
 			var connection = new NpgsqlConnection(_connectionString);
@@ -29,7 +28,6 @@ namespace SimpleOT.Data
 			if(connection != null)
 				connection.Close();
 		}
-		#endregion
 	}
 }
 

@@ -45,7 +45,7 @@ namespace SimpleOT.Net
                 return;
             }
 
-            var account = Server.Instance.AccountRepository.FindByLogin(login);
+            var account = Server.Instance.AccountRepository.Load(login);
 
             if (account == null)
             {
