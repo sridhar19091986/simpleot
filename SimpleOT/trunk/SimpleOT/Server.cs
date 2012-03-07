@@ -46,8 +46,8 @@ namespace SimpleOT
 
             _serviceManager = new ServiceManager(this);
 
-            _serviceManager.Add<LoginProtocol>(7171);
-            _serviceManager.Add<GameProtocol>(7172);
+            _serviceManager.Add<LoginProtocol>(_configManager.LoginPort);
+            _serviceManager.Add<GameProtocol>(_configManager.GamePort);
         }
 
         ~Server()
