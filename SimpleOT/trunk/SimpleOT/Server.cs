@@ -47,6 +47,9 @@ namespace SimpleOT
 
             _serviceManager.Add<LoginProtocol>(_configManager.LoginPort);
             _serviceManager.Add<GameProtocol>(_configManager.GamePort);
+
+            logger.Info("Local ip address: " + String.Join(" ", _serviceManager.PrivateIpAddresses));
+            logger.Info("Global ip address: " + String.Join(" ", _serviceManager.PublicIpAddresses));
         }
 
         ~Server()
@@ -65,6 +68,8 @@ namespace SimpleOT
         public OutputMessagePool OutputMessagePool { get { return _outputMessagePool; } }
 
         public ConfigManager ConfigManager { get { return _configManager; } }
+
+        public ServiceManager ServiceManager { get { return _serviceManager; } }
 
         static void Main(string[] args)
         {

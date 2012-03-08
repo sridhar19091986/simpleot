@@ -4,11 +4,12 @@ using System.Data.Common;
 using System.Xml.Linq;
 using SimpleOT.Scripting;
 
-namespace SimpleOT.Commons
+namespace SimpleOT
 {
 	public static class Extensions
 	{
 		private static Random _random = new Random ();
+        private static DateTime _epochDate = new DateTime(1970, 1, 1);
 
         #region Event
 
@@ -30,7 +31,7 @@ namespace SimpleOT.Commons
 
 		public static long Milliseconds (this DateTime dateTime)
 		{
-			return dateTime.Ticks / 10000;
+            return dateTime.Subtract(_epochDate).Ticks / 10000;
 		}
 
         #endregion
@@ -108,55 +109,6 @@ namespace SimpleOT.Commons
 				list [k] = list [n];
 				list [n] = value;
 			}
-		}
-
-		public static bool IsEmpty<T> (this IList<T> list)
-		{
-			return list == null || list.Count == 0;
-		}
-
-        #endregion
-
-        #region Database
-
-		public static byte[] GetBinary (this DbDataReader reader, string name)
-		{
-			var value = reader [name];
-
-			if (value is byte[])
-				return (byte[])value;
-
-			return null;
-		}
-
-		public static int GetInt32 (this DbDataReader reader, string name)
-		{
-			var value = reader [name];
-
-			if (value is int)
-				return (int)value;
-
-			return 0;
-		}
-
-		public static long GetInt64 (this DbDataReader reader, string name)
-		{
-			var value = reader [name];
-
-			if (value is long)
-				return (long)value;
-
-			return 0;
-		}
-
-		public static string GetString (this DbDataReader reader, string name)
-		{
-			var value = reader [name];
-
-			if (value is string)
-				return (string)value;
-
-			return string.Empty;
 		}
 
         #endregion

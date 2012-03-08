@@ -76,6 +76,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Net\Adler.cs" />
     <Compile Include="Net\GameProtocol.cs" />
+    <Compile Include="Net\IPConverter.cs" />
     <Compile Include="Net\IService.cs" />
     <Compile Include="Net\LoginProtocol.cs" />
     <Compile Include="Net\Protocol.cs" />

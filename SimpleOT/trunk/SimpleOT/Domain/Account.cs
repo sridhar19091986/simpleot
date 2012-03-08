@@ -25,6 +25,18 @@ namespace SimpleOT.Domain
         public int Warnings { get { return _warnings; } set { _warnings = value; } }
 
         public IList<string> Characters { get { return _characters; } }
+
+        public ushort PremiumDaysLeft
+        {
+            get
+            {
+                var now = DateTime.Now.Milliseconds();
+                if (_premmiumEnd < now)
+                    return 0;
+
+                return (ushort)Math.Ceiling(((double)(_premmiumEnd - now)) / 86400.0);
+            }
+        }
     }
 }
 
