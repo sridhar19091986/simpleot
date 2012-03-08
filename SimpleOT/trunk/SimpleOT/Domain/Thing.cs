@@ -8,6 +8,5 @@ namespace SimpleOT.Domain
     public class Thing
     {
         public int Id { get; set; }
-
     }
 }

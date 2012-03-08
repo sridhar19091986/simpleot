@@ -18,6 +18,8 @@ namespace SimpleOT
         public string ServerLocation { get; private set; }
         public string ServerIp { get; private set; }
 
+        public string WorldName { get; private set; }
+
         public int LoginPort { get; private set; }
         public int GamePort { get; private set; }
 
@@ -37,6 +39,8 @@ namespace SimpleOT
             ServerName = GetString("servername", "SimpleOT");
             ServerLocation = GetString("location", "Brasil");
             ServerIp = GetString("ip", "127.0.0.1");
+
+            WorldName = GetString("worldname", "OpenTibia");
 
             LoginPort = GetInteger("login_port", 7171);
             GamePort = GetInteger("game_port", 7172);

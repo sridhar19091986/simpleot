@@ -53,6 +53,37 @@ namespace SimpleOT.Net
                 return;
             }
 
+            var output = Server.OutputMessagePool.Get(Connection, false);
+
+            if (output != null)
+            {
+                var serverIp = Server.ServiceManager.IpAddresses.First().Key;
+                foreach (var keyPair in Server.ServiceManager.IpAddresses)
+                {
+                    if ((keyPair.Key & keyPair.Value) == (Connection.IpAddress & keyPair.Value))
+                    {
+                        serverIp = keyPair.Key;
+                        break;
+                    }
+                }
+
+                output.PutByte(0x64);
+                output.PutByte((byte)account.Characters.Count);
+
+                foreach (var character in account.Characters)
+                {
+                    output.PutString(character);
+                    output.PutString(Server.ConfigManager.WorldName);
+                    output.PutUInt(serverIp);
+                    output.PutUShort((ushort)Server.ConfigManager.GamePort);
+                }
+
+                output.PutUShort(account.PremiumDaysLeft);
+
+                Connection.Write(output);
+            }
+
+            Connection.Close();
         }
     }
 }

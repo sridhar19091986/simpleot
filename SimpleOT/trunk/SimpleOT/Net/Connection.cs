@@ -42,6 +42,7 @@ namespace SimpleOT.Net
         private bool _firstMessageReceived;
 		
 		private string _remoteAddress;
+        private uint _ipAddress;
 
         public Connection(Server server, ServicePort servicePort, Socket socket)
         {
@@ -65,6 +66,7 @@ namespace SimpleOT.Net
             _sendEventArgs.Completed += SendCallback;
 			
 			_remoteAddress = ((IPEndPoint)_socket.RemoteEndPoint).Address.ToString();
+            _ipAddress = IPConverter.ToUInt32(_remoteAddress);
         }
 
         public void Accept()
@@ -381,5 +383,6 @@ namespace SimpleOT.Net
         public int ReceiveTimeout { get { return _receiveTimeout; } set { _receiveTimeout = value; } }
         public int SendTimeout { get { return _sendTimeout; } set { _sendTimeout = value; } }
         public string RemoteAddress { get { return _remoteAddress; } }
+        public uint IpAddress { get { return _ipAddress; } }
 	}
 }

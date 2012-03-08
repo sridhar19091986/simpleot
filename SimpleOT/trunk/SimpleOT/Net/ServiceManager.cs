@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using SimpleOT.Threading;
 using NLog;
+using System.Net;
+using System.Net.Sockets;
 
 namespace SimpleOT.Net
 {
@@ -13,14 +15,33 @@ namespace SimpleOT.Net
 
         private readonly Server _server;
         private readonly IDictionary<int, ServicePort> _acceptors;
+        private readonly IDictionary<uint, uint> _ipList;
 
         public ServiceManager(Server server)
         {
             if (server == null)
                 throw new ArgumentNullException("server");
 
-			_server = server;
+            _server = server;
             _acceptors = new Dictionary<int, ServicePort>();
+
+            _ipList = new Dictionary<uint, uint>();
+
+            //local ip address
+            _ipList[IPConverter.ToUInt32("127.0.0.1")] = 0xFFFFFFFF;
+
+            foreach (var address in Dns.GetHostAddresses(Dns.GetHostName()))
+            {
+                if(address.AddressFamily == AddressFamily.InterNetwork)
+                    _ipList[IPConverter.ToUInt32(address.ToString())] = 0x0000FFFF;
+            }
+
+            //public ip address
+            foreach (var address in Dns.GetHostAddresses(_server.ConfigManager.ServerIp))
+            {
+                if(address.AddressFamily == AddressFamily.InterNetwork)
+                    _ipList[IPConverter.ToUInt32(address.ToString())] = 0;
+            }
         }
 
         public void Add<T>(int port) where T : Protocol, new()
@@ -55,5 +76,23 @@ namespace SimpleOT.Net
         }
 
         public Server Server { get { return _server; } }
+
+        public IDictionary<uint, uint> IpAddresses { get { return _ipList; } }
+
+        public string[] PublicIpAddresses 
+        {
+            get
+            {
+                return _ipList.Where(x => x.Value == 0).Select(x => IPConverter.ToString(x.Key)).ToArray();
+            }
+        }
+
+        public string[] PrivateIpAddresses
+        {
+            get
+            {
+                return _ipList.Where(x => x.Value == 0xFFFFFFFF || x.Value == 0x0000FFFF).Select(x => IPConverter.ToString(x.Key)).ToArray();
+            }
+        }
     }
 }
