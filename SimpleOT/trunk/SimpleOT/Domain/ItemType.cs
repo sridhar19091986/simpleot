@@ -70,7 +70,7 @@ namespace SimpleOT.Domain
 
         public ushort LightColor;
 
-        //public ItemGroup Group;
+        public ItemGroup Group;
 
         //public FloorChangeDirection FloorChange;
 

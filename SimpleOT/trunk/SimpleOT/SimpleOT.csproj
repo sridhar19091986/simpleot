@@ -110,6 +110,9 @@
     <Compile Include="IO\FileLoader.cs" />
     <Compile Include="IO\PropertyReader.cs" />
     <Compile Include="IO\PropertyWriter.cs" />
+    <Compile Include="Data\IItemTypeRepository.cs" />
+    <Compile Include="Data\ItemTypeOtbRepository.cs" />
+    <Compile Include="Domain\ItemGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">
