@@ -159,7 +159,11 @@ namespace SimpleOT.Net
                                 }
 
                                 _protocol.Connection = this;
-                            }
+                            } 
+							else 
+							{
+								_message.GetByte(); //remove the protocol byte.
+							}
 
                             OnReceiveFirstMessage();
                         }

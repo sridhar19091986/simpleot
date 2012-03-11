@@ -28,6 +28,12 @@ namespace SimpleOT
 		
 		public const int ConnectionSendTimeout = 30000; //30s
 		public const int ConnectionReceiveTimeout = 30000; //30s
+		
+        public const int FloorBits = 3;
+        public const int FloorSize = (1 << FloorBits);
+        public const int FloorMask = (FloorSize - 1);
+		
+		public const int MapMaxLayers = 16;
 	}
 }
 
