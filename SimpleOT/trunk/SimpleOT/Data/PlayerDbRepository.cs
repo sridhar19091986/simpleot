@@ -8,12 +8,12 @@ using System.Data;
 
 namespace SimpleOT.Data
 {
-    public class PlayerRepository : Repository
+    public class PlayerDbRepository : DbRepository, IPlayerRepository
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        public PlayerRepository(IConnectionFactory connectionFactory)
-            : base(connectionFactory)
+        public PlayerDbRepository(IDbConnectionFactory dbConnectionFactory)
+            : base(dbConnectionFactory)
         {
         }
 
@@ -39,7 +39,7 @@ namespace SimpleOT.Data
 
             try
             {
-                using (var connection = ConnectionFactory.Get())
+                using (var connection = DbConnectionFactory.Get())
                 {
                     using (var command = connection.CreateCommand())
                     {

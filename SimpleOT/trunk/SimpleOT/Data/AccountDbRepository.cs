@@ -5,11 +5,11 @@ using SimpleOT.Domain;
 
 namespace SimpleOT.Data
 {
-	public class AccountRepository : Repository
+	public class AccountDbRepository : DbRepository, IAccountRepository
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		
-		public AccountRepository (IConnectionFactory connectionFactory) : base(connectionFactory)
+		public AccountDbRepository (IDbConnectionFactory connectionFactory) : base(connectionFactory)
 		{
 		}
 
@@ -17,7 +17,7 @@ namespace SimpleOT.Data
         {
             try
             {
-                using (var connection = ConnectionFactory.Get())
+                using (var connection = DbConnectionFactory.Get())
                 {
                     using (var command = connection.CreateCommand())
                     {
@@ -58,7 +58,7 @@ namespace SimpleOT.Data
 
             try
             {
-                using (var connection = ConnectionFactory.Get())
+                using (var connection = DbConnectionFactory.Get())
                 {
                     using (var command = connection.CreateCommand())
                     {
@@ -102,7 +102,7 @@ namespace SimpleOT.Data
         {
             try
             {
-                using (var connection = ConnectionFactory.Get())
+                using (var connection = DbConnectionFactory.Get())
                 {
                     using (var command = connection.CreateCommand())
                     {
