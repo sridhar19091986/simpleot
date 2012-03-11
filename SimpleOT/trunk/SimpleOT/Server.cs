@@ -28,6 +28,7 @@ namespace SimpleOT
 		private readonly IDbConnectionFactory _dbConnectionFactory;
 		private readonly IAccountRepository _accountRepository;
 		private readonly IPlayerRepository _playerRepository;
+		private readonly IItemTypeRepository _itemTypeRepository;
 
         public Server()
         {
@@ -40,7 +41,7 @@ namespace SimpleOT
             _dbConnectionFactory = new PostgresDbConnectionFactory();
             _accountRepository = new AccountDbRepository(_dbConnectionFactory);
 			_playerRepository = new PlayerDbRepository(_dbConnectionFactory);
-			//_itemTypeRepository =
+			_itemTypeRepository = new ItemTypeOtbRepository(@"Data\items\items.otb");
 
             _configManager = new ConfigManager(this);
 
@@ -66,6 +67,7 @@ namespace SimpleOT
 
         public IAccountRepository AccountRepository { get { return _accountRepository; } }
 		public IPlayerRepository PlayerRepository { get{ return _playerRepository; } }
+		public IItemTypeRepository ItemRepository{get{return _itemTypeRepository;}}
 
         public Dispatcher Dispatcher { get { return _dispatcher; } }
         public Scheduler Scheduler { get { return _scheduler; } }
