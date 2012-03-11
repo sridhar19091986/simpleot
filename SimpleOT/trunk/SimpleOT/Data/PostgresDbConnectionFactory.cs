@@ -4,17 +4,17 @@ using System.Data;
 
 namespace SimpleOT.Data
 {
-	public class PostgresConnectionFactory : IConnectionFactory
+	public class PostgresDbConnectionFactory : IDbConnectionFactory
 	{
 		private string _connectionString;
 		
-		public PostgresConnectionFactory(string host, int port, string userId, string password, string database)
+		public PostgresDbConnectionFactory(string host, int port, string userId, string password, string database)
 		{
 			this._connectionString = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};",
           		host, port, userId, password, database);
 		}
 		
-		public PostgresConnectionFactory () : this("127.0.0.1", 5432, "postgres", "postgres", "otserv") { }
+		public PostgresDbConnectionFactory () : this("127.0.0.1", 5432, "postgres", "postgres", "otserv") { }
 		
 		public IDbConnection Get ()
 		{

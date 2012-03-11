@@ -3,7 +3,7 @@ using System.Data;
 
 namespace SimpleOT.Data
 {
-	public interface IConnectionFactory
+	public interface IDbConnectionFactory
 	{
 		IDbConnection Get();
 		void Put(IDbConnection connection);

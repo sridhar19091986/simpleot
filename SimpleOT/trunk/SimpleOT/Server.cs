@@ -22,10 +22,12 @@ namespace SimpleOT
 
         private readonly OutputMessagePool _outputMessagePool;
         private readonly ServiceManager _serviceManager;
-        private readonly IConnectionFactory _connectionFactory;
-        private readonly AccountRepository _accountRepository;
-
+        
         private readonly ConfigManager _configManager;
+		
+		private readonly IDbConnectionFactory _dbConnectionFactory;
+		private readonly IAccountRepository _accountRepository;
+		private readonly IPlayerRepository _playerRepository;
 
         public Server()
         {
@@ -35,8 +37,10 @@ namespace SimpleOT
             _dispatcher.Start();
             _scheduler.Start();
 
-            _connectionFactory = new PostgresConnectionFactory();
-            _accountRepository = new AccountRepository(_connectionFactory);
+            _dbConnectionFactory = new PostgresDbConnectionFactory();
+            _accountRepository = new AccountDbRepository(_dbConnectionFactory);
+			_playerRepository = new PlayerDbRepository(_dbConnectionFactory);
+			//_itemTypeRepository =
 
             _configManager = new ConfigManager(this);
 
@@ -48,8 +52,8 @@ namespace SimpleOT
             _serviceManager.Add<LoginProtocol>(_configManager.LoginPort);
             _serviceManager.Add<GameProtocol>(_configManager.GamePort);
 
-            logger.Info("Local ip address: " + String.Join(" ", _serviceManager.PrivateIpAddresses));
-            logger.Info("Global ip address: " + String.Join(" ", _serviceManager.PublicIpAddresses));
+            logger.Info("Local ip address: {0}", String.Join(" ", _serviceManager.PrivateIpAddresses));
+            logger.Info("Global ip address: {0}", String.Join(" ", _serviceManager.PublicIpAddresses));
         }
 
         ~Server()
@@ -60,7 +64,8 @@ namespace SimpleOT
             _dispatcher.Shutdown();
         }
 
-        public AccountRepository AccountRepository { get { return _accountRepository; } }
+        public IAccountRepository AccountRepository { get { return _accountRepository; } }
+		public IPlayerRepository PlayerRepository { get{ return _playerRepository; } }
 
         public Dispatcher Dispatcher { get { return _dispatcher; } }
         public Scheduler Scheduler { get { return _scheduler; } }
