@@ -107,6 +107,9 @@
     <Compile Include="Data\PostgresDbConnectionFactory.cs" />
     <Compile Include="Data\PlayerDbRepository.cs" />
     <Compile Include="Data\IPlayerRepository.cs" />
+    <Compile Include="IO\FileLoader.cs" />
+    <Compile Include="IO\PropertyReader.cs" />
+    <Compile Include="IO\PropertyWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">
@@ -134,4 +137,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="IO\" />
+  </ItemGroup>
 </Project>
