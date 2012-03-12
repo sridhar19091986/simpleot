@@ -1,18 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT.Libraries", "SimpleOT.Libraries\SimpleOT.Libraries.csproj", "{74E08E08-6901-4185-8378-E17CF6B143DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT", "SimpleOT\SimpleOT.csproj", "{5931698F-DB88-4B7C-A2CD-F8746E1A018A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT.Tests", "SimpleOT.Tests\SimpleOT.Tests.csproj", "{65D3207D-D304-40A8-B5C2-8A59152DB734}"
-EndProject
+# SharpDevelop 4.2.0.8649-Beta 2
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{47916906-4320-44A2-8A22-E82B9F119BBE}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
 		SimpleOT.vsmdi = SimpleOT.vsmdi
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT.Libraries", "SimpleOT.Libraries\SimpleOT.Libraries.csproj", "{74E08E08-6901-4185-8378-E17CF6B143DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT", "SimpleOT\SimpleOT.csproj", "{5931698F-DB88-4B7C-A2CD-F8746E1A018A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT.Tests", "SimpleOT.Tests\SimpleOT.Tests.csproj", "{65D3207D-D304-40A8-B5C2-8A59152DB734}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOT.Data", "SimpleOT.Data\SimpleOT.Data.csproj", "{B89136AB-7354-483D-B274-D3FE181B4E20}"
 EndProject
@@ -96,6 +97,8 @@ Global
 		{B89136AB-7354-483D-B274-D3FE181B4E20}.Release|Mixed Platforms.Build.0 = Release|x86
 		{B89136AB-7354-483D-B274-D3FE181B4E20}.Release|x86.ActiveCfg = Release|x86
 		{B89136AB-7354-483D-B274-D3FE181B4E20}.Release|x86.Build.0 = Release|x86
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74E08E08-6901-4185-8378-E17CF6B143DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,7 +110,6 @@ Global
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$1.ResourceNamePolicy = FileFormatDefault
 		$0.StandardHeader = $2
-		$2.Text = 
 		$2.IncludeInNewFiles = True
 	EndGlobalSection
 EndGlobal

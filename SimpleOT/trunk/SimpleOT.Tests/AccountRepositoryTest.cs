@@ -10,12 +10,12 @@ namespace SimpleOT.Tests
     [TestClass()]
     public class AccountRepositoryTest
     {
-        private AccountRepository _accountRepository;
+        private IAccountRepository _accountRepository;
 
         [TestInitialize]
         public void Initialize()
         {
-            _accountRepository = new AccountRepository(new PostgresConnectionFactory());
+            _accountRepository = new AccountDbRepository(new PostgresDbConnectionFactory());
         }
 
         [TestMethod]
