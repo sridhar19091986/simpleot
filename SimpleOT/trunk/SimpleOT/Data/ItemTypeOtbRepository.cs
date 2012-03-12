@@ -169,169 +169,169 @@ namespace SimpleOT.Data
             }
         }
 		
-		private void LoadXml()
-        {
-            try
-            {
-                var xml = XElement.Load(_xmlFileName);
-
-                foreach (var item in xml.Elements("item"))
-                {
-                    var id = item.Attribute("id").GetUInt16();
-
-                    if (id > 20000 && id < 20100)
-                    {
-                        id = (ushort)(id - 20000);
-                        _types[id] = new ItemType { Id = id };
-                    }
-
-                    var type = _types[id];
-
-                    type.Name = item.Attribute("name").GetString();
-                    type.Article = item.Attribute("article").GetString();
-                    type.Plural = item.Attribute("plural").GetString();
-
-                    LoadAttributes(type, item);
-                }
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Log.Error("Can not load items.xml", e);
-                return false;
-            }
-        }
-
-        private static void LoadAttributes(ItemType type, XContainer element)
-        {
-            foreach (var property in element.Elements("attribute"))
-            {
-                switch (property.Attribute("key").GetString())
-                {
-                    case "description":
-                        type.Description = property.Attribute("value").GetString();
-                        break;
-                    case "floorchange":
-                        switch (property.Attribute("value").GetString().ToLower())
-                        {
-                            case "down":
-                                type.FloorChange = FloorChangeDirection.Down;
-                                break;
-                            case "north":
-                                type.FloorChange = FloorChangeDirection.North;
-                                break;
-                            case "south":
-                                type.FloorChange = FloorChangeDirection.South;
-                                break;
-                            case "west":
-                                type.FloorChange = FloorChangeDirection.West;
-                                break;
-                            case "east":
-                                type.FloorChange = FloorChangeDirection.East;
-                                break;
-                        }
-
-                        break;
-
-                    case "replaceable":
-                        type.IsReplaceable = property.Attribute("value").GetInt32() != 0;
-                        break;
-                    case "effect":
-                        type.MagicEffect = EnumConverter.ToMagicEffectType(property.Attribute("value").GetString());
-                        break;
-                    case "charges":
-                        type.Charges = property.Attribute("value").GetInt32();
-                        break;
-                    case "weight":
-                        type.Weight = property.Attribute("value").GetInt32() / 100f;
-                        break;
-                    case "defense":
-                        type.Defense = property.Attribute("value").GetInt32();
-                        break;
-                    case "weapontype":
-
-                        switch (property.Attribute("value").GetString().ToLower())
-                        {
-                            case "sword":
-                                type.WeaponType = WeaponType.Sword;
-                                break;
-                            case "club":
-                                type.WeaponType = WeaponType.Club;
-                                break;
-                            case "axe":
-                                type.WeaponType = WeaponType.Axe;
-                                break;
-                            case "shield":
-                                type.WeaponType = WeaponType.Shield;
-                                break;
-                            case "distance":
-                                type.WeaponType = WeaponType.Distance;
-                                break;
-                            case "wand":
-                                type.WeaponType = WeaponType.Wand;
-                                break;
-                            case "ammunition":
-                                type.WeaponType = WeaponType.Ammo;
-                                break;
-                            default:
-                                Log.Warn("Unknown weaponType " + property.Attribute("value").GetString());
-                                break;
-                        }
-
-                        break;
-
-                    case "slottype":
-
-                        switch (property.Attribute("value").GetString().ToLower())
-                        {
-                            case "head":
-                                type.SlotFlags |= SlotFlags.Head;
-                                type.WieldPosition = SlotType.Head;
-                                break;
-                            case "body":
-                                type.SlotFlags |= SlotFlags.Armor;
-                                type.WieldPosition = SlotType.Armor;
-                                break;
-                            case "legs":
-                                type.SlotFlags |= SlotFlags.Legs;
-                                type.WieldPosition = SlotType.Legs;
-                                break;
-                            case "feet":
-                                type.SlotFlags |= SlotFlags.Feet;
-                                type.WieldPosition = SlotType.Feet;
-                                break;
-                            case "backpack":
-                                type.SlotFlags |= SlotFlags.Backpack;
-                                type.WieldPosition = SlotType.Backpack;
-                                break;
-                            case "two-handed":
-                                type.SlotFlags |= SlotFlags.TwoHand;
-                                type.WieldPosition = SlotType.TwoHand;
-                                break;
-                            case "necklace":
-                                type.SlotFlags |= SlotFlags.Necklace;
-                                type.WieldPosition = SlotType.Necklace;
-                                break;
-                            case "ring":
-                                type.SlotFlags |= SlotFlags.Ring;
-                                type.WieldPosition = SlotType.Ring;
-                                break;
-                            case "hand":
-                                type.WieldPosition = SlotType.Hand;
-                                break;
-                            case "ammo":
-                                type.WieldPosition = SlotType.Ammo;
-                                break;
-                            default:
-                                Log.Warn("Unknown slotType " + property.Attribute("value").GetString());
-                                break;
-                        }
-
-                        break;
-                }
-            }
-        }
+//		private void LoadXml()
+//        {
+//            try
+//            {
+//                var xml = XElement.Load(_xmlFileName);
+//
+//                foreach (var item in xml.Elements("item"))
+//                {
+//                    var id = item.Attribute("id").GetUInt16();
+//
+//                    if (id > 20000 && id < 20100)
+//                    {
+//                        id = (ushort)(id - 20000);
+//                        _types[id] = new ItemType { Id = id };
+//                    }
+//
+//                    var type = _types[id];
+//
+//                    type.Name = item.Attribute("name").GetString();
+//                    type.Article = item.Attribute("article").GetString();
+//                    type.Plural = item.Attribute("plural").GetString();
+//
+//                    LoadAttributes(type, item);
+//                }
+//
+//                return true;
+//            }
+//            catch (Exception e)
+//            {
+//                Log.Error("Can not load items.xml", e);
+//                return false;
+//            }
+//        }
+//
+//        private static void LoadAttributes(ItemType type, XContainer element)
+//        {
+//            foreach (var property in element.Elements("attribute"))
+//            {
+//                switch (property.Attribute("key").GetString())
+//                {
+//                    case "description":
+//                        type.Description = property.Attribute("value").GetString();
+//                        break;
+//                    case "floorchange":
+//                        switch (property.Attribute("value").GetString().ToLower())
+//                        {
+//                            case "down":
+//                                type.FloorChange = FloorChangeDirection.Down;
+//                                break;
+//                            case "north":
+//                                type.FloorChange = FloorChangeDirection.North;
+//                                break;
+//                            case "south":
+//                                type.FloorChange = FloorChangeDirection.South;
+//                                break;
+//                            case "west":
+//                                type.FloorChange = FloorChangeDirection.West;
+//                                break;
+//                            case "east":
+//                                type.FloorChange = FloorChangeDirection.East;
+//                                break;
+//                        }
+//
+//                        break;
+//
+//                    case "replaceable":
+//                        type.IsReplaceable = property.Attribute("value").GetInt32() != 0;
+//                        break;
+//                    case "effect":
+//                        type.MagicEffect = EnumConverter.ToMagicEffectType(property.Attribute("value").GetString());
+//                        break;
+//                    case "charges":
+//                        type.Charges = property.Attribute("value").GetInt32();
+//                        break;
+//                    case "weight":
+//                        type.Weight = property.Attribute("value").GetInt32() / 100f;
+//                        break;
+//                    case "defense":
+//                        type.Defense = property.Attribute("value").GetInt32();
+//                        break;
+//                    case "weapontype":
+//
+//                        switch (property.Attribute("value").GetString().ToLower())
+//                        {
+//                            case "sword":
+//                                type.WeaponType = WeaponType.Sword;
+//                                break;
+//                            case "club":
+//                                type.WeaponType = WeaponType.Club;
+//                                break;
+//                            case "axe":
+//                                type.WeaponType = WeaponType.Axe;
+//                                break;
+//                            case "shield":
+//                                type.WeaponType = WeaponType.Shield;
+//                                break;
+//                            case "distance":
+//                                type.WeaponType = WeaponType.Distance;
+//                                break;
+//                            case "wand":
+//                                type.WeaponType = WeaponType.Wand;
+//                                break;
+//                            case "ammunition":
+//                                type.WeaponType = WeaponType.Ammo;
+//                                break;
+//                            default:
+//                                Log.Warn("Unknown weaponType " + property.Attribute("value").GetString());
+//                                break;
+//                        }
+//
+//                        break;
+//
+//                    case "slottype":
+//
+//                        switch (property.Attribute("value").GetString().ToLower())
+//                        {
+//                            case "head":
+//                                type.SlotFlags |= SlotFlags.Head;
+//                                type.WieldPosition = SlotType.Head;
+//                                break;
+//                            case "body":
+//                                type.SlotFlags |= SlotFlags.Armor;
+//                                type.WieldPosition = SlotType.Armor;
+//                                break;
+//                            case "legs":
+//                                type.SlotFlags |= SlotFlags.Legs;
+//                                type.WieldPosition = SlotType.Legs;
+//                                break;
+//                            case "feet":
+//                                type.SlotFlags |= SlotFlags.Feet;
+//                                type.WieldPosition = SlotType.Feet;
+//                                break;
+//                            case "backpack":
+//                                type.SlotFlags |= SlotFlags.Backpack;
+//                                type.WieldPosition = SlotType.Backpack;
+//                                break;
+//                            case "two-handed":
+//                                type.SlotFlags |= SlotFlags.TwoHand;
+//                                type.WieldPosition = SlotType.TwoHand;
+//                                break;
+//                            case "necklace":
+//                                type.SlotFlags |= SlotFlags.Necklace;
+//                                type.WieldPosition = SlotType.Necklace;
+//                                break;
+//                            case "ring":
+//                                type.SlotFlags |= SlotFlags.Ring;
+//                                type.WieldPosition = SlotType.Ring;
+//                                break;
+//                            case "hand":
+//                                type.WieldPosition = SlotType.Hand;
+//                                break;
+//                            case "ammo":
+//                                type.WieldPosition = SlotType.Ammo;
+//                                break;
+//                            default:
+//                                Log.Warn("Unknown slotType " + property.Attribute("value").GetString());
+//                                break;
+//                        }
+//
+//                        break;
+//                }
+//            }
+//        }
 		
 		enum ItemAttribute : byte
         {

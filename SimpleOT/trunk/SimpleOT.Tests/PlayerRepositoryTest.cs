@@ -10,12 +10,12 @@ namespace SimpleOT.Tests
     [TestClass()]
     public class PlayerRepositoryTest
     {
-        private PlayerRepository _playerRepository;
+        private IPlayerRepository _playerRepository;
 
         [TestInitialize]
         public void Initialize()
         {
-            _playerRepository = new PlayerRepository(new PostgresConnectionFactory());
+            _playerRepository = new PlayerDbRepository(new PostgresDbConnectionFactory());
         }
 
         [TestMethod]
