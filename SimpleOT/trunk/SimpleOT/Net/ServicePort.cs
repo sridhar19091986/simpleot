@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NLog;
 using System.Net.Sockets;
 using SimpleOT.Threading;
 using SimpleOT.Collections;
 using System.Net;
+using SimpleOT.IO;
 
 namespace SimpleOT.Net
 {
     public class ServicePort
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         private readonly Server _server;
 
         private readonly ISet<IService> _services;
@@ -90,7 +88,10 @@ namespace SimpleOT.Net
 				connection.SendTimeout = Constants.ConnectionSendTimeout;
 				connection.ReceiveTimeout = Constants.ConnectionReceiveTimeout;
 				
-				logger.Debug("Adding conection from {0}.", connection.RemoteAddress);
+#if DEBUG_SERVICE_PORT
+				Logger.Debug(string.Format("Adding conection from {0}.", connection.RemoteAddress));
+#endif
+
 				_connections.Add(connection);
 
                	if(_services.Any (x=>x.SingleSocket))
@@ -112,7 +113,9 @@ namespace SimpleOT.Net
 
         public void OnConnectionClosed(Connection connection)
         {
-			logger.Debug("Removing conection from {0}.", connection.RemoteAddress);
+#if DEBUG_SERVICE_PORT
+			Logger.Debug(string.Format("Removing conection from {0}.", connection.RemoteAddress));
+#endif
             lock (_connections)
                 _connections.Remove(connection);
         }

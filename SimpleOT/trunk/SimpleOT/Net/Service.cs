@@ -8,7 +8,6 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Net;
 using SimpleOT.Threading;
-using NLog;
 using SimpleOT.Collections;
 
 namespace SimpleOT.Net

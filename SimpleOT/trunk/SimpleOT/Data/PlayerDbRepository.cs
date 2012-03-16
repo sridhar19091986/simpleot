@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NLog;
 using SimpleOT.Domain;
 using System.Data;
+using SimpleOT.IO;
 
 namespace SimpleOT.Data
 {
     public class PlayerDbRepository : DbRepository, IPlayerRepository
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
         public PlayerDbRepository(IDbConnectionFactory dbConnectionFactory)
             : base(dbConnectionFactory)
         {
@@ -71,7 +69,7 @@ namespace SimpleOT.Data
             }
             catch (Exception exception)
             {
-                logger.ErrorException("Can't load player.", exception);
+                Logger.Error("Can't load player.", exception);
                 return null;
             }
 

@@ -1,14 +1,12 @@
 using System;
 using System.Data;
-using NLog;
 using SimpleOT.Domain;
+using SimpleOT.IO;
 
 namespace SimpleOT.Data
 {
 	public class AccountDbRepository : DbRepository, IAccountRepository
 	{
-		private static Logger logger = LogManager.GetCurrentClassLogger();
-		
 		public AccountDbRepository (IDbConnectionFactory connectionFactory) : base(connectionFactory)
 		{
 		}
@@ -48,7 +46,7 @@ namespace SimpleOT.Data
             }
             catch (Exception exception)
             {
-                logger.ErrorException("Can't save account.", exception);
+                Logger.Error("Can't save account.", exception);
             }
         }
 
@@ -91,7 +89,7 @@ namespace SimpleOT.Data
             }
             catch (Exception exception)
             {
-                logger.ErrorException("Can't load account.", exception);
+                Logger.Error("Can't load account.", exception);
                 return null;
             }
 
@@ -125,7 +123,7 @@ namespace SimpleOT.Data
             }
             catch (Exception exception)
             {
-                logger.ErrorException("Can't load account players.", exception);
+                Logger.Error("Can't load account players.", exception);
             }
         }
 	}

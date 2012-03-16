@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SimpleOT.Threading;
-using NLog;
 using System.Net;
 using System.Net.Sockets;
+using SimpleOT.IO;
 
 namespace SimpleOT.Net
 {
     public class ServiceManager
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         private readonly Server _server;
         private readonly IDictionary<int, ServicePort> _acceptors;
         private readonly IDictionary<uint, uint> _ipList;
@@ -50,7 +48,7 @@ namespace SimpleOT.Net
 
             if (port <= 0)
             {
-                logger.Error("Invalid port for {0} service. Service disabled.", service.ProtocolName);
+                Logger.Error(string.Format("Invalid port for {0} service. Service disabled.", service.ProtocolName));
                 return;
             }
 
@@ -62,7 +60,7 @@ namespace SimpleOT.Net
 
                 if (servicePort.SingleSocket)
                 {
-                    logger.Error("{0} and {1} cannot use the same port {2}.", service.ProtocolName, servicePort.ProtocolNames, port);
+                    Logger.Error(string.Format("{0} and {1} cannot use the same port {2}.", service.ProtocolName, servicePort.ProtocolNames, port));
                     return;
                 }
             }

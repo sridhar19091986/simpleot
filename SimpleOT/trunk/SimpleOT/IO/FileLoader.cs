@@ -1,12 +1,9 @@
 using System.IO;
-using NLog;
 
 namespace SimpleOT.IO
 {
     public class FileLoader
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         static class Constants
         {
             public const byte NODE_START = 0xFE;
@@ -33,7 +30,7 @@ namespace SimpleOT.IO
 
             if(version > 0)
             {
-                logger.Error("Invalid file version.");
+                Logger.Error("Invalid file version.");
                 _reader.Close();
                 return false;
             }

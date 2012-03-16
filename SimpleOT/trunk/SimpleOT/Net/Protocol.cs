@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NLog;
+using SimpleOT.IO;
 
 namespace SimpleOT.Net
 {
@@ -30,8 +30,6 @@ namespace SimpleOT.Net
 
     public abstract class Protocol
     {
-		private static Logger logger = LogManager.GetCurrentClassLogger();
-
         private Server _server;
         private Connection _connection;
 
@@ -47,7 +45,7 @@ namespace SimpleOT.Net
 
         public virtual void OnReceiveFirstMessage(Message message) { }
 
-        public virtual void OnReceiveMessage(Message message) 
+        public virtual void OnReceiveMessage(Message message)
         {
             if (_hasChecksum && message.GetUInt() != Adler.Generate(message))
                 throw new Exception("Invalid message checksum.");
@@ -69,16 +67,16 @@ namespace SimpleOT.Net
             if (_hasChecksum)
                 message.PutHeader(Adler.Generate(message));
 
-            if(_hasXteaEncryption || _hasChecksum)
+            if (_hasXteaEncryption || _hasChecksum)
                 message.PutHeader((ushort)message.ReadableBytes);
         }
 
         public virtual void OnExceptionCaught(Exception exception)
         {
-			logger.Error("Connection error. Details: {0}\nStack Trace: {1}", exception.Message, exception.StackTrace);
-			
-			if(_connection != null)
-				_connection.Close();
+            Logger.Error("Connection error.", exception);
+
+            if (_connection != null)
+                _connection.Close();
         }
 
         protected void Disconnect(byte error, string description)

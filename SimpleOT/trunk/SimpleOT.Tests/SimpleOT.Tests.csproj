@@ -41,9 +41,6 @@
     <Reference Include="Mono.Security">
       <HintPath>..\SimpleOT.Libraries\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\SimpleOT.Libraries\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="Npgsql">
       <HintPath>..\SimpleOT.Libraries\Npgsql.dll</HintPath>
     </Reference>
