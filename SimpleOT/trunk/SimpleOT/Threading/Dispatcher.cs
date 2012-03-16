@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using NLog;
+using SimpleOT.IO;
 
 namespace SimpleOT.Threading
 {
     public delegate void DispatcherEventHandler();
 
     public class Dispatcher
-    {
-		private static Logger logger = LogManager.GetCurrentClassLogger();
-		
+    {		
         public event DispatcherEventHandler BeforeDispatchTask;
         public event DispatcherEventHandler AfterDispatchTask;
 
@@ -123,7 +121,7 @@ namespace SimpleOT.Threading
                     }
                     catch (Exception e)
                     {
-                       logger.ErrorException(string.Format("Error on execute task {0}.", task.Action.Method.Name), e);
+                       Logger.Error(string.Format("Error on execute task {0}.", task.Action.Method.Name), e);
                     }
                 }
             }

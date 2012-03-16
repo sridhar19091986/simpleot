@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using SimpleOT.Collections;
-using NLog;
+using SimpleOT.IO;
 
-namespace  SimpleOT.Threading
+namespace SimpleOT.Threading
 {
     public class Scheduler
     {
-		private static Logger logger = LogManager.GetCurrentClassLogger();
-		
         private Thread _thread;
         private readonly PriorityQueue<Schedule> _queue;
         private SchedulerState _state;
@@ -20,16 +18,16 @@ namespace  SimpleOT.Threading
 
         public Scheduler(Dispatcher dispatcher)
         {
-			if(dispatcher == null)
-				throw new ArgumentNullException("dispatcher");
-			
+            if (dispatcher == null)
+                throw new ArgumentNullException("dispatcher");
+
             _dispatcher = dispatcher;
             _lock = new object();
             _state = SchedulerState.Terminated;
             _queue = new PriorityQueue<Schedule>();
             _lastScheduletId = 0;
             _scheduleIds = new HashSet<uint>();
-			_lastScheduletId = Constants.SchedulerStartId;
+            _lastScheduletId = Constants.SchedulerStartId;
         }
 
         public void Start()
@@ -38,19 +36,27 @@ namespace  SimpleOT.Threading
             {
                 if (_state == SchedulerState.Running)
                     throw new InvalidOperationException("The scheduler is already running.");
-				
-				if(_state == SchedulerState.Closing) {
-                	_state = SchedulerState.Running;
-					
-					logger.Debug("Resuming scheduler.");
-				} else {
-					
-					logger.Debug("Starting scheduler.");
-					
-					_state = SchedulerState.Running;
-                	_thread = new Thread(Run) { IsBackground = false };
-                	_thread.Start();
-				}
+
+                if (_state == SchedulerState.Closing)
+                {
+                    _state = SchedulerState.Running;
+
+#if DEBUG_SCHEDULER
+					Logger.Debug("Resuming scheduler.");
+#endif
+
+                }
+                else
+                {
+
+#if DEBUG_SCHEDULER
+                    Logger.Debug("Starting scheduler.");
+#endif
+
+                    _state = SchedulerState.Running;
+                    _thread = new Thread(Run) { IsBackground = false };
+                    _thread.Start();
+                }
             }
         }
 
@@ -60,9 +66,11 @@ namespace  SimpleOT.Threading
             {
                 if (_state == SchedulerState.Terminated)
                     throw new InvalidOperationException("The scheduler is already terminated.");
-				
-				logger.Debug("Shutting down scheduler.");
-				
+
+#if DEBUG_SCHEDULER
+                Logger.Debug("Shutting down scheduler.");
+#endif
+
                 _state = SchedulerState.Terminated;
                 _queue.Clear();
                 _scheduleIds.Clear();
@@ -77,9 +85,11 @@ namespace  SimpleOT.Threading
             {
                 if (_state != SchedulerState.Running)
                     throw new InvalidOperationException("The scheduler is already stoped.");
-				
-				logger.Debug("Stoping scheduler.");
-				
+
+#if DEBUG_SCHEDULER
+                Logger.Debug("Stoping scheduler.");
+#endif
+
                 _state = SchedulerState.Closing;
             }
         }
@@ -103,7 +113,7 @@ namespace  SimpleOT.Threading
 
                     schedule.Id = ++_lastScheduletId;
                 }
-				
+
                 _scheduleIds.Add(schedule.Id);
                 _queue.Enqueue(schedule);
 
@@ -115,7 +125,7 @@ namespace  SimpleOT.Threading
         }
 
         public bool Remove(uint scheduleId)
-        {	
+        {
             lock (_lock)
             {
                 return _scheduleIds.Remove(scheduleId);
@@ -154,7 +164,7 @@ namespace  SimpleOT.Threading
                 }
             }
         }
-		
-		public Dispatcher Dispatcher{get{return _dispatcher;}}
+
+        public Dispatcher Dispatcher { get { return _dispatcher; } }
     }
 }

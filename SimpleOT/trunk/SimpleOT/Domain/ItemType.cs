@@ -72,15 +72,15 @@ namespace SimpleOT.Domain
 
         public ItemGroup Group;
 
-        //public FloorChangeDirection FloorChange;
+        public FloorChangeDirection FloorChange;
 
-        //public MagicEffectType MagicEffect;
+        public MagicEffectType MagicEffect;
 
-        //public WeaponType WeaponType;
+        public WeaponType WeaponType;
 
-        //public SlotFlags SlotFlags;
+        public SlotFlags SlotFlags;
 
-        //public SlotType WieldPosition;
+        public SlotType WieldPosition;
 
 		public ItemType ()
 		{

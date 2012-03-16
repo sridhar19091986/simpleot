@@ -1,0 +1,79 @@
+namespace SimpleOT.Domain
+{
+    public enum MagicEffectType
+    {
+        DrawBlood = 0x00,
+        LoseEnergy = 0x01,
+        Puff = 0x02,
+        BlockHit = 0x03,
+        ExplosionArea = 0x04,
+        ExplosionDamage = 0x05,
+        FireArea = 0x06,
+        YellowRings = 0x07,
+        PoisonRings = 0x08,
+        HitArea = 0x09,
+        Teleport = 0x0A, //10
+        EnergyDamage = 0x0B, //11
+        MagicEnergy = 0x0C, //12
+        MagicBlood = 0x0D, //13
+        MagicPoison = 0x0E, //14
+        HitbyFire = 0x0F, //15
+        Poison = 0x10, //16
+        MortArea = 0x11, //17
+        SoundGreen = 0x12, //18
+        SoundRed = 0x13, //19
+        PoisonArea = 0x14, //20
+        SoundYellow = 0x15, //21
+        SoundPurple = 0x16, //22
+        SoundBlue = 0x17, //23
+        SoundWhite = 0x18, //24
+        Bubbles = 0x19, //25
+        Craps = 0x1A, //26
+        GiftWraps = 0x1B, //27
+        FireworkYellow = 0x1C, //28
+        FireworkRed = 0x1D, //29
+        FireworkBlue = 0x1E, //30
+        Stun = 0x1F, //31
+        Sleep = 0x20, //32
+        WaterCreature = 0x21, //33
+        GroundShaker = 0x22, //34
+        Hearts = 0x23, //35
+        FireAttack = 0x24, //36
+        EnergyArea = 0x25, //37
+        SmallClouds = 0x26, //38
+        HolyDamage = 0x27, //39
+        BigClouds = 0x28, //40
+        IceArea = 0x29, //41
+        IceTornado = 0x2A, //42
+        IceAttack = 0x2B, //43
+        Stones = 0x2C, //44
+        SmallPlants = 0x2D, //45
+        Carniphila = 0x2E, //46
+        PurpleEnergy = 0x2F, //47
+        YellowEnergy = 0x30, //48
+        HolyArea = 0x31, //49
+        BigPlants = 0x32, //50
+        Cake = 0x33, //51
+        GiantIce = 0x34, //52
+        WaterSplash = 0x35, //53
+        PlantAttack = 0x36, //54
+        TutorialArrow = 0x37, //55
+        TutorialSquare = 0x38, //56
+        MirrorHorizontal = 0x39, //57
+        MirrorVertical = 0x3A, //58
+        SkullHorizontal = 0x3B, //59
+        SkullVertical = 0x3C, //60
+        Assassin = 0x3D, //61
+        StepsHorizontal = 0x3E, //62
+        BloodySteps = 0x3F, //63
+        StepsVertical = 0x40, //64
+        YalahariGhost = 0x41, //65
+        Bats = 0x42, //66
+        Smoke = 0x43, //67
+        Insects = 0x44, //68
+        DragonHead = 0x45, //69
+
+        None = 0xFF,
+        Unk = 0xFFFF,
+    };
+}

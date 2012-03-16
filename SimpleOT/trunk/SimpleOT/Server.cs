@@ -7,14 +7,13 @@ using SimpleOT.Threading;
 using SimpleOT.Data;
 using SimpleOT.Collections;
 using SimpleOT.Scripting;
-using NLog;
+using SimpleOT.Domain;
+using SimpleOT.IO;
 
 namespace SimpleOT
 {
     public class Server
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
 		public static Server Instance;
 		
         private readonly Dispatcher _dispatcher;
@@ -30,6 +29,8 @@ namespace SimpleOT
 		private readonly IPlayerRepository _playerRepository;
 		private readonly IItemTypeRepository _itemTypeRepository;
 
+        private readonly World _world;
+
         public Server()
         {
             _dispatcher = new Dispatcher();
@@ -38,12 +39,14 @@ namespace SimpleOT
             _dispatcher.Start();
             _scheduler.Start();
 
+            _configManager = new ConfigManager(this);
+
             _dbConnectionFactory = new PostgresDbConnectionFactory();
             _accountRepository = new AccountDbRepository(_dbConnectionFactory);
 			_playerRepository = new PlayerDbRepository(_dbConnectionFactory);
-			_itemTypeRepository = new ItemTypeOtbRepository(@"Data\items\items.otb");
+			_itemTypeRepository = new ItemTypeFileRepository(@"Data\items\items.otb");
 
-            _configManager = new ConfigManager(this);
+            _world = new World(this);
 
             _outputMessagePool = new OutputMessagePool(10, 100);
             _dispatcher.AfterDispatchTask += _outputMessagePool.ProcessEnqueueMessages;
@@ -53,8 +56,8 @@ namespace SimpleOT
             _serviceManager.Add<LoginProtocol>(_configManager.LoginPort);
             _serviceManager.Add<GameProtocol>(_configManager.GamePort);
 
-            logger.Info("Local ip address: {0}", String.Join(" ", _serviceManager.PrivateIpAddresses));
-            logger.Info("Global ip address: {0}", String.Join(" ", _serviceManager.PublicIpAddresses));
+            Logger.Info(string.Format("Local ip address: {0}", String.Join(" ", _serviceManager.PrivateIpAddresses)));
+            Logger.Info(string.Format("Global ip address: {0}", String.Join(" ", _serviceManager.PublicIpAddresses)));
         }
 
         ~Server()
@@ -78,6 +81,8 @@ namespace SimpleOT
 
         public ServiceManager ServiceManager { get { return _serviceManager; } }
 
+        public World World { get { return _world; } }
+
         static void Main(string[] args)
         {
             try
@@ -86,7 +91,7 @@ namespace SimpleOT
             }
             catch (Exception e)
             {
-                logger.FatalException("Unable to start the server.", e);
+                Logger.Fatal("Unable to start the server.", e);
             }
         }
     }

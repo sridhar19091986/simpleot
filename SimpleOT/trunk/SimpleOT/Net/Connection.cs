@@ -6,14 +6,12 @@ using System.Net.Sockets;
 using SimpleOT.Threading;
 using System.Net;
 using SimpleOT.Collections;
-using NLog;
+using SimpleOT.IO;
 
 namespace SimpleOT.Net
 {
     public class Connection
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         private enum ReceiveType
         {
             Head,
@@ -153,7 +151,7 @@ namespace SimpleOT.Net
 
                                 if (_protocol == null)
                                 {
-									logger.Error("No protocol found. Closing connection.");
+									Logger.Error("No protocol found. Closing connection.");
                                     Close();
                                     return;
                                 }
@@ -323,7 +321,7 @@ namespace SimpleOT.Net
             }
             catch (Exception e)
             {
-                logger.ErrorException("Error while handling exception.", e);
+                Logger.Error("Error while handling exception.", e);
             }
         }
 
