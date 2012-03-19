@@ -6,6 +6,7 @@ namespace SimpleOT.Domain
     public class Tile
     {
         private MapTreeNode _node;
+        private ItemList _items;
 
         public Tile()
         {
