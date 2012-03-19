@@ -57,11 +57,14 @@
     <Compile Include="Collections\OutputMessagePool.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Data\IMapRepository.cs" />
+    <Compile Include="Data\MapFileRepository.cs" />
     <Compile Include="Domain\Account.cs" />
     <Compile Include="ConfigManager.cs" />
     <Compile Include="Domain\Creature.cs" />
     <Compile Include="Domain\FloorChangeDirection.cs" />
     <Compile Include="Domain\FluidType.cs" />
+    <Compile Include="Domain\ICylinder.cs" />
     <Compile Include="Domain\Item.cs" />
     <Compile Include="Domain\MagicEffectType.cs" />
     <Compile Include="Domain\Monster.cs" />

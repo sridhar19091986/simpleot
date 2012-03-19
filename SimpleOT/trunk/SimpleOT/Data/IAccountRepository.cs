@@ -5,8 +5,8 @@ namespace SimpleOT.Data
 {
 	public interface IAccountRepository
 	{
-		void Save(Account account);
 		Account Load(string name);
+        void Save(Account account);
 	}
 }
 
