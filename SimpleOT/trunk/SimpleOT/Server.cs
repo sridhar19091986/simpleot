@@ -16,22 +16,36 @@ namespace SimpleOT
     {
 		public static Server Instance;
 		
-        private readonly Dispatcher _dispatcher;
-        private readonly Scheduler _scheduler;
+        private Dispatcher _dispatcher;
+        private Scheduler _scheduler;
 
-        private readonly OutputMessagePool _outputMessagePool;
-        private readonly ServiceManager _serviceManager;
+        private OutputMessagePool _outputMessagePool;
+        private ServiceManager _serviceManager;
         
-        private readonly ConfigManager _configManager;
+        private ConfigManager _configManager;
 		
-		private readonly IDbConnectionFactory _dbConnectionFactory;
-		private readonly IAccountRepository _accountRepository;
-		private readonly IPlayerRepository _playerRepository;
-		private readonly IItemTypeRepository _itemTypeRepository;
+		private IDbConnectionFactory _dbConnectionFactory;
+		private IAccountRepository _accountRepository;
+		private IPlayerRepository _playerRepository;
+		private IItemTypeRepository _itemTypeRepository;
+        private IMapRepository _mapRepository;
 
-        private readonly World _world;
+        private World _world;
 
         public Server()
+        {
+           
+        }
+
+        ~Server()
+        {
+            _dispatcher.AfterDispatchTask -= _outputMessagePool.ProcessEnqueueMessages;
+
+            _scheduler.Shutdown();
+            _dispatcher.Shutdown();
+        }
+
+        public void Start()
         {
             _dispatcher = new Dispatcher();
             _scheduler = new Scheduler(_dispatcher);
@@ -43,10 +57,13 @@ namespace SimpleOT
 
             _dbConnectionFactory = new PostgresDbConnectionFactory();
             _accountRepository = new AccountDbRepository(_dbConnectionFactory);
-			_playerRepository = new PlayerDbRepository(_dbConnectionFactory);
-			_itemTypeRepository = new ItemTypeFileRepository(@"Data\items\items.otb");
+            _playerRepository = new PlayerDbRepository(_dbConnectionFactory);
+            _itemTypeRepository = new ItemTypeFileRepository(@"Data\items\items.otb");
+            _mapRepository = new MapFileRepository(_itemTypeRepository);
 
             _world = new World(this);
+
+            _mapRepository.Load(_world.Map, @"Data\world\map.otbm");
 
             _outputMessagePool = new OutputMessagePool(10, 100);
             _dispatcher.AfterDispatchTask += _outputMessagePool.ProcessEnqueueMessages;
@@ -60,17 +77,15 @@ namespace SimpleOT
             Logger.Info(string.Format("Global ip address: {0}", String.Join(" ", _serviceManager.PublicIpAddresses)));
         }
 
-        ~Server()
+        public void Stop()
         {
-            _dispatcher.AfterDispatchTask -= _outputMessagePool.ProcessEnqueueMessages;
 
-            _scheduler.Shutdown();
-            _dispatcher.Shutdown();
         }
 
         public IAccountRepository AccountRepository { get { return _accountRepository; } }
 		public IPlayerRepository PlayerRepository { get{ return _playerRepository; } }
-		public IItemTypeRepository ItemRepository{get{return _itemTypeRepository;}}
+        public IItemTypeRepository ItemRepository { get { return _itemTypeRepository; } }
+        public IMapRepository MapRepository { get { return _mapRepository; } }
 
         public Dispatcher Dispatcher { get { return _dispatcher; } }
         public Scheduler Scheduler { get { return _scheduler; } }
@@ -88,6 +103,7 @@ namespace SimpleOT
             try
             {
                 Instance = new Server();
+                Instance.Start();
             }
             catch (Exception e)
             {

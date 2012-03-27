@@ -8,7 +8,7 @@ namespace SimpleOT.Data
 {
     public interface IMapRepository
     {
-        Map Load(string name);
-        void Save(Map map);
+        void Load(Map map, string fileName);
+        void Save(Map map, string fileName);
     }
 }
