@@ -19,5 +19,6 @@ namespace SimpleOT.Domain
             _map = new Map(this);
         }
 
+        public Map Map { get { return _map; } }
     }
 }
