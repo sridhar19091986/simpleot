@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,11 +24,9 @@ namespace SimpleOT
         
         private ConfigManager _configManager;
 		
-		private IDbConnectionFactory _dbConnectionFactory;
+		private IConnectionFactory _connectionFactory;
 		private IAccountRepository _accountRepository;
 		private IPlayerRepository _playerRepository;
-		private IItemTypeRepository _itemTypeRepository;
-        private IMapRepository _mapRepository;
 
         private World _world;
 
@@ -55,15 +53,15 @@ namespace SimpleOT
 
             _configManager = new ConfigManager(this);
 
-            _dbConnectionFactory = new PostgresDbConnectionFactory();
-            _accountRepository = new AccountDbRepository(_dbConnectionFactory);
-            _playerRepository = new PlayerDbRepository(_dbConnectionFactory);
-            _itemTypeRepository = new ItemTypeFileRepository(@"Data\items\items.otb");
-            _mapRepository = new MapFileRepository(_itemTypeRepository);
+			ItemType.Load(@"Data\items\items.otb");
+			
+            _connectionFactory = new PostgresConnectionFactory();
+            _accountRepository = new AccountRepository(_connectionFactory);
+            _playerRepository = new PlayerRepository(_connectionFactory);
 
             _world = new World(this);
 
-            _mapRepository.Load(_world.Map, @"Data\world\map.otbm");
+            _world.Map.Load(@"Data\world\map.otbm");
 
             _outputMessagePool = new OutputMessagePool(10, 100);
             _dispatcher.AfterDispatchTask += _outputMessagePool.ProcessEnqueueMessages;
@@ -84,8 +82,6 @@ namespace SimpleOT
 
         public IAccountRepository AccountRepository { get { return _accountRepository; } }
 		public IPlayerRepository PlayerRepository { get{ return _playerRepository; } }
-        public IItemTypeRepository ItemRepository { get { return _itemTypeRepository; } }
-        public IMapRepository MapRepository { get { return _mapRepository; } }
 
         public Dispatcher Dispatcher { get { return _dispatcher; } }
         public Scheduler Scheduler { get { return _scheduler; } }

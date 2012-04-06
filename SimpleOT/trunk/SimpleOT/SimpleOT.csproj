@@ -36,13 +36,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\SimpleOT.Libraries\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>Libraries\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security">
-      <HintPath>..\SimpleOT.Libraries\Mono.Security.dll</HintPath>
+      <HintPath>Libraries\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql">
-      <HintPath>..\SimpleOT.Libraries\Npgsql.dll</HintPath>
+      <HintPath>Libraries\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,8 +57,6 @@
     <Compile Include="Collections\OutputMessagePool.cs" />
     <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Data\IMapRepository.cs" />
-    <Compile Include="Data\MapFileRepository.cs" />
     <Compile Include="Domain\Account.cs" />
     <Compile Include="ConfigManager.cs" />
     <Compile Include="Domain\Creature.cs" />
@@ -111,25 +109,23 @@
     <Compile Include="Domain\Town.cs" />
     <Compile Include="Domain\ItemType.cs" />
     <Compile Include="Data\IAccountRepository.cs" />
-    <Compile Include="Data\IDbConnectionFactory.cs" />
-    <Compile Include="Data\DbRepository.cs" />
-    <Compile Include="Data\AccountDbRepository.cs" />
-    <Compile Include="Data\PostgresDbConnectionFactory.cs" />
-    <Compile Include="Data\PlayerDbRepository.cs" />
     <Compile Include="Data\IPlayerRepository.cs" />
     <Compile Include="IO\FileLoader.cs" />
     <Compile Include="IO\PropertyReader.cs" />
     <Compile Include="IO\PropertyWriter.cs" />
-    <Compile Include="Data\IItemTypeRepository.cs" />
-    <Compile Include="Data\ItemTypeFileRepository.cs" />
     <Compile Include="Domain\ItemGroup.cs" />
+    <Compile Include="Data\Repository.cs" />
+    <Compile Include="Data\PostgresConnectionFactory.cs" />
+    <Compile Include="Data\IConnectionFactory.cs" />
+    <Compile Include="Data\PlayerRepository.cs" />
+    <Compile Include="Data\AccountRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimpleOT.Data\SimpleOT.Data.csproj">
+    <ProjectReference Include="Data\SimpleOT.Data.csproj">
       <Project>{B89136AB-7354-483D-B274-D3FE181B4E20}</Project>
       <Name>SimpleOT.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimpleOT.Libraries\SimpleOT.Libraries.csproj">
+    <ProjectReference Include="Libraries\SimpleOT.Libraries.csproj">
       <Project>{74E08E08-6901-4185-8378-E17CF6B143DC}</Project>
       <Name>SimpleOT.Libraries</Name>
     </ProjectReference>
