@@ -1,0 +1,1 @@
+SimpleOT is a Open Tibia server that is written on a high level language (C#).
